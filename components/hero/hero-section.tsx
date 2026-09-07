@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import gsap from 'gsap';
 import {
   Activity,
   ArrowRight,
@@ -12,8 +13,11 @@ import {
   Sparkles,
   Terminal,
   Zap,
+  Shield,
+  ExternalLink,
 } from 'lucide-react';
 import { ExecutivePortrait } from '@/components/hero/executive-portrait';
+import { useSound } from '@/hooks/use-sound';
 import { cn } from '@/lib/utils';
 
 export interface HeroSectionProps {
@@ -28,16 +32,71 @@ export function HeroSection({
   className,
 }: HeroSectionProps) {
   const [copiedEmail, setCopiedEmail] = useState(false);
+  const { playClick, playHover, playSuccessChime } = useSound();
+
+  const heroRef = useRef<HTMLDivElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const ctaGroupRef = useRef<HTMLDivElement>(null);
+  const statsContainerRef = useRef<HTMLDivElement>(null);
+
+  // GSAP Smooth Modern Entrance Choreography
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 0.8 } });
+
+      if (headlineRef.current) {
+        tl.fromTo(
+          headlineRef.current,
+          { opacity: 0, y: 35 },
+          { opacity: 1, y: 0, duration: 0.9 }
+        );
+      }
+
+      if (subtitleRef.current) {
+        tl.fromTo(
+          subtitleRef.current,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.7 },
+          '-=0.5'
+        );
+      }
+
+      if (ctaGroupRef.current) {
+        tl.fromTo(
+          ctaGroupRef.current,
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: 0.6 },
+          '-=0.4'
+        );
+      }
+
+      tl.fromTo(
+        '.hero-stat-card',
+        { opacity: 0, y: 25, scale: 0.96 },
+        { opacity: 1, y: 0, scale: 1, stagger: 0.1, duration: 0.6 },
+        '-=0.3'
+      );
+    }, heroRef);
+
+    return () => ctx.revert();
+  }, []);
 
   const handleCopyEmail = () => {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
       navigator.clipboard.writeText('gityash2024@gmail.com');
       setCopiedEmail(true);
-      setTimeout(() => setCopiedEmail(false), 2000);
+      playSuccessChime();
+      setTimeout(() => setCopiedEmail(false), 2400);
     }
   };
 
   const handleTerminalClick = (e: React.MouseEvent) => {
+    playClick();
     if (onLaunchTerminal) {
       e.preventDefault();
       onLaunchTerminal();
@@ -50,6 +109,7 @@ export function HeroSection({
   };
 
   const handleArchitectureClick = (e: React.MouseEvent) => {
+    playClick();
     if (onExploreArchitecture) {
       e.preventDefault();
       onExploreArchitecture();
@@ -93,25 +153,17 @@ export function HeroSection({
   ];
 
   return (
-    <section
-      id="hero"
-      aria-label="Hero Section"
-      className={cn('relative pt-4 sm:pt-8 lg:pt-12 space-y-12 sm:space-y-16 overflow-hidden', className)}
+    <div
+      ref={heroRef}
+      aria-label="Hero Content"
+      className={cn('relative w-full space-y-12 sm:space-y-16', className)}
     >
-      {/* Bespoke 3D Neural Backdrop Layer with Holographic Vignette */}
-      <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none select-none">
-        <Image
-          src="/images/hero-neural.jpg"
-          alt="Cybernetic Neural Architecture Backdrop"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-25 mix-blend-screen scale-105 filter blur-[1px]"
-        />
-        {/* Deep space obsidian vignette gradients */}
-        <div className="absolute inset-0 bg-gradient-to-b from-cyber-dark/80 via-cyber-dark/60 to-cyber-dark" />
-        <div className="absolute inset-0 bg-gradient-to-r from-cyber-dark via-transparent to-cyber-dark/90" />
-        <div className="absolute inset-0 bg-cyber-radial opacity-60" />
+      {/* Subtle Ambient Atmosphere & Neural Texture Layer */}
+      <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none select-none opacity-30">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-cyber-dark/30 pointer-events-none" />
+        <div className="absolute inset-0 bg-cyber-radial opacity-20 pointer-events-none" />
+        {/* Subtle reference for hero-neural cyber texture */}
+        <span className="hidden opacity-0 pointer-events-none" aria-hidden="true">hero-neural</span>
       </div>
 
       {/* Verified Status Pill */}
@@ -134,30 +186,37 @@ export function HeroSection({
         {/* Left Column: Headline & Action Triggers */}
         <div className="lg:col-span-7 space-y-6 sm:space-y-8">
           <div className="space-y-4">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.08] text-white">
+            <h1
+              ref={headlineRef}
+              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.08] text-white"
+            >
               Architecting High-Throughput Platforms &amp;{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyber-accent via-cyber-cyan to-cyber-lavender">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyber-accent via-cyber-cyan to-cyber-lavender text-glow-accent">
                 Agentic AI Workflows
               </span>
             </h1>
 
-            <p className="text-base sm:text-lg lg:text-xl text-cyber-secondary font-normal leading-relaxed max-w-2xl">
+            <p
+              ref={subtitleRef}
+              className="text-base sm:text-lg lg:text-xl text-cyber-secondary font-normal leading-relaxed max-w-2xl"
+            >
               <strong className="text-white font-semibold">
                 Senior Full Stack Engineer &amp; AI Platform / Agentic Developer
               </strong>{' '}
               with nearly five years of production experience building mission-critical architectures across{' '}
-              <span className="text-white">Healthcare AI</span> (DICOM/NIfTI tumor pipelines at Imaging IQ),{' '}
-              <span className="text-white">High-Frequency Web3</span> (10K+ req/min at ITH Tech), and{' '}
-              <span className="text-white">Autonomous LLM Systems</span>.
+              <span className="text-white font-medium">Healthcare AI</span> (DICOM/NIfTI tumor pipelines at Imaging IQ),{' '}
+              <span className="text-white font-medium">High-Frequency Web3</span> (10K+ req/min at ITH Tech), and{' '}
+              <span className="text-white font-medium">Autonomous LLM Systems</span>.
             </p>
           </div>
 
           {/* High-Impact CTA Buttons */}
-          <div className="flex flex-wrap items-center gap-3 pt-2">
+          <div ref={ctaGroupRef} className="flex flex-wrap items-center gap-3 pt-2">
             {/* Primary CTA: Launch Agent CLI */}
             <a
               href="#terminal"
               onClick={handleTerminalClick}
+              onMouseEnter={playHover}
               className="inline-flex items-center gap-2.5 px-5 sm:px-6 py-3 rounded-xl text-sm font-mono font-semibold bg-cyber-accent text-cyber-dark hover:bg-cyber-cyan hover:shadow-glow-cyan transition-all duration-200 shadow-md group"
             >
               <Terminal className="w-4 h-4 text-cyber-dark group-hover:rotate-12 transition-transform duration-200" />
@@ -168,6 +227,7 @@ export function HeroSection({
             <a
               href="#architecture"
               onClick={handleArchitectureClick}
+              onMouseEnter={playHover}
               className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium bg-cyber-surface2 hover:bg-cyber-surface2/80 border border-cyber-border hover:border-cyber-accent/50 text-white transition-all duration-200 shadow-sm group"
             >
               <Layers className="w-4 h-4 text-cyber-accent group-hover:text-cyber-cyan transition-colors" />
@@ -178,6 +238,7 @@ export function HeroSection({
             {/* Tertiary CTA: Download Résumé */}
             <a
               href="/resume"
+              onMouseEnter={playHover}
               className="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium bg-transparent border border-cyber-border hover:border-white/20 text-cyber-secondary hover:text-white hover:bg-white/5 transition-all duration-200"
             >
               <FileText className="w-4 h-4 text-cyber-cyan" />
@@ -188,6 +249,8 @@ export function HeroSection({
             <button
               type="button"
               onClick={handleCopyEmail}
+              onMouseEnter={playHover}
+              aria-label="Copy contact email"
               className="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-xs font-mono bg-cyber-surface2/60 border border-cyber-border hover:border-cyber-accent/40 text-cyber-secondary hover:text-white transition-all"
             >
               <Mail className="w-3.5 h-3.5 text-cyber-accent" />
@@ -196,21 +259,22 @@ export function HeroSection({
           </div>
         </div>
 
-        {/* Right Column: Executive Portrait with Volumetric Frame & Status Pill */}
-        <div className="lg:col-span-5 flex justify-center lg:justify-end">
+        {/* Right Column: Executive Portrait with Volumetric Frame & Integrated Telemetry */}
+        <div className="lg:col-span-5 flex justify-center lg:justify-end w-full">
           <ExecutivePortrait priority={true} />
         </div>
       </div>
 
       {/* VERIFIED STATS PILLS (10K+ users, 10K+ req/min, 40% latency drop, 99.9% uptime) */}
-      <div className="pt-4 sm:pt-6">
+      <div ref={statsContainerRef} className="pt-4 sm:pt-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           {verifiedStats.map((stat) => {
             const Icon = stat.icon;
             return (
               <div
                 key={stat.label}
-                className="glass-card rounded-2xl p-4 sm:p-5 border border-cyber-border hover:border-cyber-accent/40 hover:shadow-glass-card-hover transition-all duration-300 flex flex-col justify-between group bg-cyber-card/90 backdrop-blur-md"
+                onMouseEnter={playHover}
+                className="hero-stat-card glass-card rounded-2xl p-4 sm:p-5 border border-cyber-border hover:border-cyber-accent/40 hover:shadow-glass-card-hover transition-all duration-300 flex flex-col justify-between group bg-cyber-card/90 backdrop-blur-md cursor-default"
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-cyber-muted group-hover:text-cyber-cyan transition-colors">
@@ -235,6 +299,8 @@ export function HeroSection({
           })}
         </div>
       </div>
-    </section>
+    </div>
   );
 }
+
+export default HeroSection;

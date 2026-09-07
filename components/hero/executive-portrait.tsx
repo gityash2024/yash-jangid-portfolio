@@ -1,9 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { Award, ShieldCheck, Terminal } from 'lucide-react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { Award, ShieldCheck, Terminal, Sparkles, Cpu } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export interface ExecutivePortraitProps {
@@ -12,92 +12,113 @@ export interface ExecutivePortraitProps {
 }
 
 export function ExecutivePortrait({ className, priority = true }: ExecutivePortraitProps) {
-  return (
-    <div className={cn('relative flex flex-col items-center justify-center', className)}>
-      {/* Volumetric Outer Ambient Glow Halo */}
-      <div className="absolute -inset-2 sm:-inset-4 bg-gradient-to-r from-cyber-accent/25 via-cyber-cyan/20 to-cyber-lavender/25 rounded-3xl blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+  const cardRef = useRef<HTMLDivElement>(null);
 
-      {/* Main Glassmorphic Cyber Frame */}
+  // Interactive 3D tilt
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { damping: 20, stiffness: 260 };
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [6, -6]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-6, 6]), springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const xPct = (e.clientX - rect.left) / rect.width - 0.5;
+    const yPct = (e.clientY - rect.top) / rect.height - 0.5;
+    mouseX.set(xPct);
+    mouseY.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
+  return (
+    <div className={cn('relative flex flex-col items-center justify-center select-none w-full', className)}>
+      {/* Volumetric Holographic Glow Halo */}
+      <div className="absolute -inset-4 sm:-inset-6 bg-gradient-to-tr from-cyber-accent/30 via-cyber-cyan/25 to-cyber-lavender/30 rounded-[2.5rem] blur-3xl opacity-70 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+      {/* Cybernetic Telemetry Radar Ring in Background */}
+      <div className="absolute -inset-8 rounded-full border border-cyber-accent/15 pointer-events-none animate-[spin_40s_linear_infinite]" />
+      <div className="absolute -inset-14 rounded-full border border-dashed border-cyber-cyan/10 pointer-events-none animate-[spin_60s_linear_infinite_reverse]" />
+
+      {/* Main High-Tech Holographic Executive Frame */}
       <motion.div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          rotateX,
+          rotateY,
+          transformStyle: 'preserve-3d',
+        }}
         whileHover={{ scale: 1.02, y: -4 }}
         transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-        className="relative group w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[420px] aspect-square rounded-2xl sm:rounded-3xl p-2.5 sm:p-3 bg-cyber-card/90 backdrop-blur-xl border border-cyber-accent/30 shadow-glass-card hover:border-cyber-cyan/50 hover:shadow-glass-card-hover transition-all duration-300"
+        className="relative group w-[290px] h-[290px] xs:w-[330px] xs:h-[330px] sm:w-[370px] sm:h-[370px] lg:w-[410px] lg:h-[410px] xl:w-[430px] xl:h-[430px] aspect-square shrink-0 rounded-3xl p-2 sm:p-2.5 bg-gradient-to-b from-cyber-surface2/90 via-cyber-surface/95 to-cyber-dark border border-cyber-accent/40 shadow-glass-card hover:border-cyber-cyan/70 hover:shadow-glow-accent transition-all duration-300"
       >
-        {/* Cyber Aesthetic Corner Brackets */}
-        <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-cyber-accent/70 rounded-tl pointer-events-none" />
-        <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-cyber-accent/70 rounded-tr pointer-events-none" />
-        <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-cyber-accent/70 rounded-bl pointer-events-none" />
-        <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-cyber-accent/70 rounded-br pointer-events-none" />
+        {/* Cyber Aesthetic Precision Corner Brackets */}
+        <div className="absolute -top-1.5 -left-1.5 w-4 h-4 border-t-2 border-l-2 border-cyber-accent rounded-tl pointer-events-none" />
+        <div className="absolute -top-1.5 -right-1.5 w-4 h-4 border-t-2 border-r-2 border-cyber-cyan rounded-tr pointer-events-none" />
+        <div className="absolute -bottom-1.5 -left-1.5 w-4 h-4 border-b-2 border-l-2 border-cyber-lavender rounded-bl pointer-events-none" />
+        <div className="absolute -bottom-1.5 -right-1.5 w-4 h-4 border-b-2 border-r-2 border-cyber-accent rounded-br pointer-events-none" />
 
-        {/* Inner Portrait Wrapper */}
-        <div className="relative w-full h-full rounded-xl sm:rounded-2xl overflow-hidden bg-cyber-surface2">
-          {/* Authentic Portrait Image via Next.js Image Component */}
+        {/* Inner Portrait Viewport — Completely unobstructed */}
+        <div className="relative w-full h-full rounded-2xl overflow-hidden bg-cyber-surface2 border border-white/5">
+          {/* Authentic Portrait Image */}
           <Image
             src="/images/yash-jangid.webp"
             alt="Yash Jangid — Senior Full Stack Engineer & AI Platform Developer"
-            width={400}
-            height={400}
+            fill
+            sizes="(max-width: 640px) 330px, (max-width: 1024px) 370px, 430px"
             priority={priority}
-            className="object-cover w-full h-full transition-transform duration-700 ease-out group-hover:scale-105"
-            sizes="(max-width: 640px) 340px, (max-width: 1024px) 380px, 420px"
+            unoptimized={true}
+            className="object-cover object-center w-full h-full transition-transform duration-700 ease-out group-hover:scale-105 filter brightness-105 contrast-[1.03]"
           />
 
-          {/* Holographic / Cyber Vignette Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-cyber-dark/85 via-cyber-dark/10 to-transparent pointer-events-none" />
-          <div className="absolute inset-0 bg-cyber-radial opacity-30 pointer-events-none" />
+          {/* Gentle edge vignette preserving full portrait clarity */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#070b12]/50 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-cyber-radial opacity-20 pointer-events-none" />
 
-          {/* Top-Right Online Beacon Pill */}
-          <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cyber-dark/90 backdrop-blur-md border border-cyber-green/40 shadow-sm">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyber-green opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyber-green" />
-            </span>
-            <span className="text-[10px] font-mono font-medium tracking-wider text-cyber-green uppercase">
-              Online
-            </span>
-          </div>
-
-          {/* Bottom In-Frame Verified Status Pill */}
-          <div className="absolute bottom-3 left-3 right-3 z-10">
-            <div className="px-3 py-2 rounded-xl bg-cyber-dark/90 backdrop-blur-md border border-white/10 shadow-lg flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-cyber-accent flex-shrink-0" />
-                <div className="leading-tight">
-                  <p className="text-[11px] font-semibold text-white tracking-tight">Yash Jangid</p>
-                  <p className="text-[10px] font-mono text-cyber-cyan">Verified Senior Engineer</p>
-                </div>
-              </div>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyber-accent/15 text-cyber-accent border border-cyber-accent/30 font-medium">
-                5+ Yrs Prod
-              </span>
-            </div>
-          </div>
+          {/* High-Tech Scanner Beam Sweep Line */}
+          <div className="absolute inset-x-0 h-24 bg-gradient-to-b from-transparent via-cyber-accent/15 to-transparent pointer-events-none -translate-y-full group-hover:translate-y-[450px] transition-transform duration-1000 ease-in-out" />
         </div>
 
-        {/* Floating KPI Badge 1 (Top-Left): Role / Focus */}
-        <motion.div
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2 }}
-          className="absolute -top-3 -left-3 sm:-left-6 z-20 hidden xs:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-cyber-surface/95 backdrop-blur-md border border-cyber-accent/40 shadow-glass-card text-xs font-mono"
-        >
-          <Terminal className="w-3.5 h-3.5 text-cyber-cyan" />
+        {/* Top-Right Online Telemetry Beacon */}
+        <div className="absolute -top-3 -right-3 sm:-right-4 z-20 flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyber-dark/95 backdrop-blur-md border border-cyber-green/50 shadow-md">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyber-green opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-cyber-green" />
+          </span>
+          <span className="text-[10px] font-mono font-bold tracking-wider text-cyber-green uppercase">
+            Online
+          </span>
+        </div>
+
+        {/* Floating Top-Left Telemetry KPI Badge */}
+        <div className="absolute -top-3 -left-3 sm:-left-5 z-20 hidden xs:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-cyber-surface/95 backdrop-blur-md border border-cyber-accent/40 shadow-glass-card text-xs font-mono">
+          <Terminal className="w-3.5 h-3.5 text-cyber-accent" />
           <span className="text-white font-medium">Senior Full Stack</span>
           <span className="text-cyber-muted text-[10px]">· AI Dev</span>
-        </motion.div>
+        </div>
 
-        {/* Floating KPI Badge 2 (Bottom-Right): Honors / Education */}
-        <motion.div
-          initial={{ opacity: 0, x: 10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3 }}
-          className="absolute -bottom-3 -right-3 sm:-right-6 z-20 hidden xs:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-cyber-surface/95 backdrop-blur-md border border-cyber-accent/40 shadow-glass-card text-xs font-mono"
-        >
-          <Award className="w-3.5 h-3.5 text-cyber-accent" />
+        {/* Floating Bottom-Right Honors Badge */}
+        <div className="absolute -bottom-3 -right-3 sm:-right-5 z-20 hidden xs:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-cyber-surface/95 backdrop-blur-md border border-cyber-accent/40 shadow-glass-card text-xs font-mono">
+          <Award className="w-3.5 h-3.5 text-cyber-green" />
           <span className="text-white font-medium">UPES B.Tech</span>
           <span className="text-cyber-green text-[10px] font-bold">8.9 GPA</span>
-        </motion.div>
+        </div>
+
+        {/* Floating Bottom-Left Verified Status Badge */}
+        <div className="absolute -bottom-3 -left-3 sm:-left-4 z-20 flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyber-dark/95 backdrop-blur-md border border-cyber-accent/40 shadow-md text-[10px] font-mono text-cyber-cyan">
+          <ShieldCheck className="w-3.5 h-3.5 text-cyber-accent" />
+          <span className="font-semibold text-white">Verified Senior Engineer</span>
+        </div>
       </motion.div>
     </div>
   );
 }
+
+export default ExecutivePortrait;

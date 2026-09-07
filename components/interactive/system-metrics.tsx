@@ -249,6 +249,34 @@ export function SystemMetricsVisualizer({ className }: { className?: string }) {
               <span>25K (Heavy)</span>
               <span>50K (Stress Surge)</span>
             </div>
+
+            {/* Quick Benchmark Presets */}
+            <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t border-white/5">
+              <span className="text-[10px] font-mono text-cyber-muted mr-0.5">Presets:</span>
+              {[
+                { label: '1.5K Idle', val: 1500 },
+                { label: '14.8K SLA', val: 14820 },
+                { label: '28K DICOM', val: 28000 },
+                { label: '50K Peak', val: 50000 },
+              ].map((preset) => (
+                <button
+                  key={preset.val}
+                  type="button"
+                  onClick={() => {
+                    setLoadReqPerMin(preset.val);
+                    playTerminalKey();
+                  }}
+                  className={cn(
+                    'px-2 py-0.5 rounded text-[10px] font-mono transition-all',
+                    loadReqPerMin === preset.val
+                      ? 'bg-cyber-accent text-cyber-dark font-bold shadow-sm'
+                      : 'bg-black/40 border border-white/5 text-cyber-secondary hover:text-white hover:border-cyber-accent/40'
+                  )}
+                >
+                  {preset.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 

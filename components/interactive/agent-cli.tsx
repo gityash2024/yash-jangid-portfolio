@@ -77,7 +77,7 @@ function findDidYouMean(input: string): string | null {
   let minDistance = 3; // threshold
 
   for (const cmd of KNOWN_COMMANDS) {
-    if (cmd.startsWith(clean) || clean.startsWith(cmd.slice(0, 4))) {
+    if (cmd.startsWith(clean) || clean.startsWith(cmd.slice(0, 4)) || cmd.includes(clean)) {
       return cmd;
     }
     const dist = levenshteinDistance(clean, cmd);

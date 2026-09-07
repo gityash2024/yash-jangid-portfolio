@@ -15,11 +15,16 @@ import {
   Award,
   Layers,
   Sparkles,
+  Shield,
+  ExternalLink,
 } from 'lucide-react';
 import { careerExperiences, ExperienceItem } from '@/data/portfolio';
+import { useSound } from '@/hooks/use-sound';
 import { cn } from '@/lib/utils';
 
 export function ExperienceSection() {
+  const { playClick, playHover } = useSound();
+
   // State tracking which experience cards are expanded for deep-dive reading
   const [expandedCards, setExpandedCards] = useState<Record<string, boolean>>({
     'imaging-iq': true,
@@ -28,10 +33,43 @@ export function ExperienceSection() {
   });
 
   const toggleExpand = (id: string) => {
+    playClick();
     setExpandedCards((prev) => ({
       ...prev,
       [id]: !prev[id],
     }));
+  };
+
+  const architecturalPillars: Record<string, { title: string; subtitle: string; highlights: string[] }> = {
+    'imaging-iq': {
+      title: 'Enterprise Healthcare AI & DICOMweb Ingestion Architecture',
+      subtitle: 'Oncology tumor detection pipelines with 98.4% Dice score and sub-100ms slice streaming',
+      highlights: [
+        'Store-and-forward DICOM ingestion via Orthanc PACS and DICOMweb WADO-RS / QIDO-RS protocols.',
+        'Client-side WebGL multi-planar reconstruction (MPR) rendering via customized OHIF Viewer.',
+        'Deterministic LLM agent orchestration integrating Model Context Protocol (MCP) tool endpoints for structured clinical reporting.',
+        'Decoupled microservice topology isolating volume normalization (SimpleITK/NumPy) from GPU model execution.',
+      ],
+    },
+    'ith-technologies-sde1': {
+      title: 'High-Throughput Web3 & Algorithmic Trading Infrastructure',
+      subtitle: '10,000+ req/min throughput, -40% latency reduction, and 99.9% uptime across 5+ platforms',
+      highlights: [
+        'Distributed Redis cache cluster maintaining hot-path order books and sub-100ms request paths under volatility surges.',
+        'Full-duplex WebSocket order-book multiplexing with sequence validation algorithms preventing state desyncs.',
+        'Automated Docker containerization & GitHub Actions CI/CD pipeline slashing release cycles from 2 hours to 15 minutes.',
+        'Authored and published 8+ shared internal npm utility libraries adopted company-wide.',
+      ],
+    },
+    'ith-technologies-intern': {
+      title: 'Full Stack Engineering Foundations & Accelerated Promotion',
+      subtitle: 'High-velocity feature delivery and rapid advancement from Intern to Core SDE I',
+      highlights: [
+        'Engineered responsive React interfaces and integrated RESTful backend services with strict error boundaries.',
+        'Authored integration tests for critical authentication and data transformation paths.',
+        'Earned accelerated promotion to full-time Software Development Engineer (SDE I) in 7 months.',
+      ],
+    },
   };
 
   return (
@@ -72,8 +110,9 @@ export function ExperienceSection() {
         {/* Continuous Timeline Vertical Line */}
         <div className="absolute left-[11px] sm:left-[19px] top-4 bottom-4 w-0.5 bg-gradient-to-b from-cyber-accent via-cyber-cyan to-cyber-border" />
 
-        {careerExperiences.map((exp, index) => {
+        {careerExperiences.map((exp) => {
           const isExpanded = !!expandedCards[exp.id];
+          const pillar = architecturalPillars[exp.id];
 
           return (
             <div key={exp.id} className="relative group">
@@ -132,6 +171,7 @@ export function ExperienceSection() {
                     <button
                       type="button"
                       onClick={() => toggleExpand(exp.id)}
+                      onMouseEnter={playHover}
                       aria-expanded={isExpanded}
                       className="p-1.5 rounded-lg border border-cyber-border text-cyber-secondary hover:text-white hover:border-cyber-accent/40 transition-colors"
                       title={isExpanded ? 'Collapse details' : 'Expand details'}
@@ -147,7 +187,7 @@ export function ExperienceSection() {
                     {exp.metrics.map((metric, idx) => (
                       <div
                         key={idx}
-                        className="rounded-xl p-3 bg-cyber-surface2/60 border border-cyber-border text-center flex flex-col justify-center"
+                        className="rounded-xl p-3 bg-cyber-surface2/60 border border-cyber-border text-center flex flex-col justify-center group-hover:border-cyber-accent/20 transition-colors"
                       >
                         <div className="text-lg sm:text-xl font-bold font-mono text-white">
                           {metric.value}
@@ -178,6 +218,7 @@ export function ExperienceSection() {
                     <button
                       type="button"
                       onClick={() => toggleExpand(exp.id)}
+                      onMouseEnter={playHover}
                       className="text-xs font-mono text-cyber-accent hover:underline inline-flex items-center gap-1 pt-1"
                     >
                       <span>Show {exp.highlights.length - 3} more accomplishments...</span>
@@ -185,6 +226,30 @@ export function ExperienceSection() {
                     </button>
                   )}
                 </div>
+
+                {/* Deep-Dive Architectural Pillar Banner (Rendered when expanded) */}
+                {isExpanded && pillar && (
+                  <div className="p-4 sm:p-5 rounded-xl bg-cyber-surface2/80 border border-cyber-accent/30 space-y-3 animate-in fade-in-50 duration-200">
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="w-4 h-4 text-cyber-accent" />
+                      <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">
+                        {pillar.title}
+                      </span>
+                    </div>
+                    <p className="text-xs text-cyber-secondary">{pillar.subtitle}</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                      {pillar.highlights.map((item, itemIdx) => (
+                        <div
+                          key={itemIdx}
+                          className="flex items-start gap-2 p-2.5 rounded-lg bg-black/30 border border-white/5 text-[11px] text-cyber-secondary"
+                        >
+                          <CheckCircle2 className="w-3.5 h-3.5 text-cyber-green shrink-0 mt-0.5" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {/* Technology Badges */}
                 <div className="pt-2 border-t border-cyber-border space-y-2.5">
@@ -195,7 +260,8 @@ export function ExperienceSection() {
                     {exp.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="text-xs font-mono px-2.5 py-1 rounded-md bg-cyber-surface2 text-cyber-secondary border border-cyber-border hover:text-white hover:border-cyber-accent/30 transition-colors"
+                        onMouseEnter={playHover}
+                        className="text-xs font-mono px-2.5 py-1 rounded-md bg-cyber-surface2 text-cyber-secondary border border-cyber-border hover:text-white hover:border-cyber-accent/40 transition-colors"
                       >
                         {skill}
                       </span>
@@ -210,3 +276,5 @@ export function ExperienceSection() {
     </section>
   );
 }
+
+export default ExperienceSection;

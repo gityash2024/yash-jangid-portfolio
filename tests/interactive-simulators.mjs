@@ -42,7 +42,7 @@ export class AgentCliSimulator {
     let minDistance = Infinity;
     const clean = inputCmd.toLowerCase().trim();
     for (const cmd of this.registeredCommands.keys()) {
-      if (cmd.startsWith(clean) || clean.startsWith(cmd.slice(0, 4))) {
+      if (cmd.startsWith(clean) || clean.startsWith(cmd.slice(0, 4)) || cmd.includes(clean)) {
         return cmd;
       }
       const dist = AgentCliSimulator.levenshtein(clean, cmd);

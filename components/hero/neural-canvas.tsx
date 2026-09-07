@@ -11,6 +11,7 @@ interface Particle {
   baseAlpha: number;
   pulsePhase: number;
   color: string;
+  isHub?: boolean;
 }
 
 interface WaveRipple {
@@ -49,7 +50,7 @@ export function NeuralCanvas({ className }: { className?: string }) {
       y: -2000,
       targetX: -2000,
       targetY: -2000,
-      radius: 160,
+      radius: 180,
     };
 
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -69,23 +70,24 @@ export function NeuralCanvas({ className }: { className?: string }) {
 
     let maxDistance = getMaxDistance(width);
 
-    // Initialize particles with cyber palette (accent indigo, cyan, lavender)
+    // Dynamic cyber palette: electric accent, vivid cyan, mint green, lavender
     const colors = [
-      'rgba(124, 140, 255,', // cyber-accent
+      'rgba(124, 140, 255,', // cyber-accent (indigo-blue)
       'rgba(140, 216, 255,', // cyber-cyan
       'rgba(184, 168, 255,', // cyber-lavender
       'rgba(120, 230, 188,', // cyber-green
     ];
 
-    let particles: Particle[] = Array.from({ length: getNodeCount(width) }, () => ({
+    let particles: Particle[] = Array.from({ length: getNodeCount(width) }, (_, idx) => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5,
-      radius: Math.random() * 1.6 + 1.2,
-      baseAlpha: Math.random() * 0.4 + 0.35,
+      vx: (Math.random() - 0.5) * 0.6,
+      vy: (Math.random() - 0.5) * 0.6,
+      radius: idx % 12 === 0 ? Math.random() * 2.2 + 2.4 : Math.random() * 1.5 + 1.2,
+      baseAlpha: Math.random() * 0.4 + 0.45,
       pulsePhase: Math.random() * Math.PI * 2,
       color: colors[Math.floor(Math.random() * colors.length)],
+      isHub: idx % 12 === 0,
     }));
 
     const handleResize = () => {
@@ -98,18 +100,18 @@ export function NeuralCanvas({ className }: { className?: string }) {
 
       maxDistance = getMaxDistance(width);
 
-      // Rebalance particles if screen changed significantly
       const targetCount = getNodeCount(width);
       if (Math.abs(particles.length - targetCount) > 15) {
-        particles = Array.from({ length: targetCount }, () => ({
+        particles = Array.from({ length: targetCount }, (_, idx) => ({
           x: Math.random() * width,
           y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
-          radius: Math.random() * 1.6 + 1.2,
-          baseAlpha: Math.random() * 0.4 + 0.35,
+          vx: (Math.random() - 0.5) * 0.6,
+          vy: (Math.random() - 0.5) * 0.6,
+          radius: idx % 12 === 0 ? Math.random() * 2.2 + 2.4 : Math.random() * 1.5 + 1.2,
+          baseAlpha: Math.random() * 0.4 + 0.45,
           pulsePhase: Math.random() * Math.PI * 2,
           color: colors[Math.floor(Math.random() * colors.length)],
+          isHub: idx % 12 === 0,
         }));
       }
     };
@@ -134,9 +136,9 @@ export function NeuralCanvas({ className }: { className?: string }) {
       ripples.push({
         x: clickX,
         y: clickY,
-        radius: 5,
-        maxRadius: 220,
-        alpha: 0.6,
+        radius: 6,
+        maxRadius: 260,
+        alpha: 0.8,
       });
 
       // Momentarily push nearby particles outward
@@ -144,15 +146,15 @@ export function NeuralCanvas({ className }: { className?: string }) {
         const dx = p.x - clickX;
         const dy = p.y - clickY;
         const dist = Math.hypot(dx, dy);
-        if (dist < 180 && dist > 0) {
-          const impulse = (180 - dist) / 180;
-          p.vx += (dx / dist) * impulse * 2.8;
-          p.vy += (dy / dist) * impulse * 2.8;
+        if (dist < 200 && dist > 0) {
+          const impulse = (200 - dist) / 200;
+          p.vx += (dx / dist) * impulse * 3.2;
+          p.vy += (dy / dist) * impulse * 3.2;
         }
       }
     };
 
-    // IntersectionObserver to pause when scrolled away
+    // IntersectionObserver to pause when scrolled out of view
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
@@ -172,7 +174,7 @@ export function NeuralCanvas({ className }: { className?: string }) {
     };
     mediaQuery.addEventListener('change', handleMotionPreference);
 
-    // Frame rendering loop
+    // Main animation render loop
     const render = () => {
       if (isPaused) {
         animId = requestAnimationFrame(render);
@@ -184,13 +186,13 @@ export function NeuralCanvas({ className }: { className?: string }) {
       // Render ripples
       for (let r = ripples.length - 1; r >= 0; r--) {
         const rip = ripples[r];
-        rip.radius += 3.5;
-        rip.alpha *= 0.96;
+        rip.radius += 4.0;
+        rip.alpha *= 0.955;
 
         ctx.beginPath();
         ctx.arc(rip.x, rip.y, rip.radius, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(140, 216, 255, ${rip.alpha * 0.4})`;
-        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = `rgba(140, 216, 255, ${rip.alpha * 0.5})`;
+        ctx.lineWidth = 2.0;
         ctx.stroke();
 
         if (rip.alpha < 0.01 || rip.radius >= rip.maxRadius) {
@@ -203,46 +205,42 @@ export function NeuralCanvas({ className }: { className?: string }) {
         const p = particles[i];
 
         if (!prefersReducedMotion) {
-          p.pulsePhase += 0.025;
+          p.pulsePhase += 0.03;
 
-          // Velocity dampening back to nominal speed
+          // Velocity dampening
           p.vx *= 0.985;
           p.vy *= 0.985;
 
-          // Ensure minimum drift
+          // Gentle drift
           const speed = Math.hypot(p.vx, p.vy);
-          if (speed < 0.2) {
-            p.vx += (Math.random() - 0.5) * 0.05;
-            p.vy += (Math.random() - 0.5) * 0.05;
+          if (speed < 0.22) {
+            p.vx += (Math.random() - 0.5) * 0.06;
+            p.vy += (Math.random() - 0.5) * 0.06;
           }
 
           p.x += p.vx;
           p.y += p.vy;
 
-          // Boundary screen wrap with buffer
+          // Boundary screen wrap
           if (p.x < -20) p.x = width + 20;
           else if (p.x > width + 20) p.x = -20;
           if (p.y < -20) p.y = height + 20;
           else if (p.y > height + 20) p.y = -20;
 
-          // Cursor attraction/repulsion physics
+          // Cursor attraction/repulsion
           const dx = mouse.x - p.x;
           const dy = mouse.y - p.y;
           const dist = Math.hypot(dx, dy);
 
           if (dist < mouse.radius && dist > 0) {
-            // Gentle repulsive force
             const force = (mouse.radius - dist) / mouse.radius;
-            p.x -= (dx / dist) * force * 1.6;
-            p.y -= (dy / dist) * force * 1.6;
+            p.x -= (dx / dist) * force * 1.8;
+            p.y -= (dy / dist) * force * 1.8;
           }
         }
 
-        // Particle pulse alpha
-        const alpha = Math.max(
-          0.15,
-          p.baseAlpha + Math.sin(p.pulsePhase) * 0.2
-        );
+        // Pulse alpha
+        const alpha = Math.max(0.2, p.baseAlpha + Math.sin(p.pulsePhase) * 0.25);
 
         // Draw node
         ctx.beginPath();
@@ -250,18 +248,27 @@ export function NeuralCanvas({ className }: { className?: string }) {
         ctx.fillStyle = `${p.color} ${alpha})`;
         ctx.fill();
 
+        // If hub, draw outer pulse aura
+        if (p.isHub) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius * 2.2, 0, Math.PI * 2);
+          ctx.strokeStyle = `${p.color} ${alpha * 0.35})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+
         // Connect nearby nodes
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
 
           if (dist < maxDistance) {
-            const edgeAlpha = (1 - dist / maxDistance) * 0.24;
+            const edgeAlpha = (1 - dist / maxDistance) * 0.32;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
             ctx.strokeStyle = `rgba(124, 140, 255, ${edgeAlpha})`;
-            ctx.lineWidth = 0.8;
+            ctx.lineWidth = 0.9;
             ctx.stroke();
           }
         }
@@ -269,12 +276,12 @@ export function NeuralCanvas({ className }: { className?: string }) {
         // Connect node to cursor if within range
         const cursorDist = Math.hypot(p.x - mouse.x, p.y - mouse.y);
         if (cursorDist < mouse.radius) {
-          const mAlpha = (1 - cursorDist / mouse.radius) * 0.45;
+          const mAlpha = (1 - cursorDist / mouse.radius) * 0.55;
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(mouse.x, mouse.y);
           ctx.strokeStyle = `rgba(140, 216, 255, ${mAlpha})`;
-          ctx.lineWidth = 1.0;
+          ctx.lineWidth = 1.2;
           ctx.stroke();
         }
       }
@@ -301,7 +308,7 @@ export function NeuralCanvas({ className }: { className?: string }) {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className={className || 'absolute inset-0 pointer-events-auto z-0 opacity-75'}
+      className={className || 'absolute inset-0 pointer-events-auto z-0 opacity-85'}
       style={{ touchAction: 'none' }}
     />
   );
