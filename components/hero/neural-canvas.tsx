@@ -167,6 +167,7 @@ export function NeuralCanvas({ className }: { className?: string }) {
     window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseleave', handleMouseLeave);
+    window.addEventListener('click', handleClick);
     canvas.addEventListener('click', handleClick);
 
     const handleMotionPreference = (e: MediaQueryListEvent) => {
@@ -299,6 +300,7 @@ export function NeuralCanvas({ className }: { className?: string }) {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener('click', handleClick);
       canvas.removeEventListener('click', handleClick);
       mediaQuery.removeEventListener('change', handleMotionPreference);
     };

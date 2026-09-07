@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Award, ShieldCheck, Terminal, Sparkles, Cpu } from 'lucide-react';
@@ -13,6 +13,7 @@ export interface ExecutivePortraitProps {
 
 export function ExecutivePortrait({ className, priority = true }: ExecutivePortraitProps) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const [useTechModel, setUseTechModel] = useState(true);
 
   // Interactive 3D tilt
   const mouseX = useMotionValue(0);
@@ -65,11 +66,11 @@ export function ExecutivePortrait({ className, priority = true }: ExecutivePortr
         <div className="absolute -bottom-1.5 -left-1.5 w-4 h-4 border-b-2 border-l-2 border-cyber-lavender rounded-bl pointer-events-none" />
         <div className="absolute -bottom-1.5 -right-1.5 w-4 h-4 border-b-2 border-r-2 border-cyber-accent rounded-br pointer-events-none" />
 
-        {/* Inner Portrait Viewport — Completely unobstructed */}
+        {/* Inner Portrait Viewport — High-definition 3D Tech Avatar Model */}
         <div className="relative w-full h-full rounded-2xl overflow-hidden bg-cyber-surface2 border border-white/5">
-          {/* Authentic Portrait Image */}
+          {/* Executive Portrait Image (Default: Ultra-Sharp 3D Tech Avatar Model, with authentic photo toggle) */}
           <Image
-            src="/images/yash-jangid.webp"
+            src={useTechModel ? '/images/yash-avatar-tech.webp' : '/images/yash-jangid.webp'}
             alt="Yash Jangid — Senior Full Stack Engineer & AI Platform Developer"
             fill
             sizes="(max-width: 640px) 330px, (max-width: 1024px) 370px, 430px"
@@ -84,6 +85,17 @@ export function ExecutivePortrait({ className, priority = true }: ExecutivePortr
 
           {/* High-Tech Scanner Beam Sweep Line */}
           <div className="absolute inset-x-0 h-24 bg-gradient-to-b from-transparent via-cyber-accent/15 to-transparent pointer-events-none -translate-y-full group-hover:translate-y-[450px] transition-transform duration-1000 ease-in-out" />
+
+          {/* Interactive 3D Model / Real Photo Switcher */}
+          <button
+            type="button"
+            onClick={() => setUseTechModel(!useTechModel)}
+            className="absolute bottom-2.5 right-2.5 z-30 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-cyber-dark/85 hover:bg-cyber-surface2 border border-cyber-accent/50 text-[10px] font-mono text-cyber-cyan transition-all backdrop-blur-md shadow-md cursor-pointer hover:border-cyber-cyan"
+            title="Toggle between 3D Tech Avatar and Authentic Photo"
+          >
+            <Sparkles className="w-3 h-3 text-cyber-accent" />
+            <span className="font-semibold">{useTechModel ? '3D Model' : 'Photo'}</span>
+          </button>
         </div>
 
         {/* Top-Right Online Telemetry Beacon */}

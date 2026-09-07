@@ -79,6 +79,11 @@ export default function HomePage() {
         <div className="fixed inset-0 pointer-events-none z-0 bg-cyber-gradient opacity-60" aria-hidden="true" />
         <div className="fixed inset-0 pointer-events-none z-0 bg-grid-pattern opacity-10" aria-hidden="true" />
 
+        {/* Full-Page Interactive Neural Particle Mesh (Moving canvas across entire portfolio background) */}
+        <div className="fixed inset-0 w-full h-full pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+          <NeuralCanvas className="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-80" />
+        </div>
+
         {/* Top Sticky Executive Navigation */}
         <ExecutiveNav
           onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
@@ -89,7 +94,7 @@ export default function HomePage() {
         {/* ================================================================== */}
         <section
           id="hero"
-          className="relative w-full min-h-screen flex flex-col justify-center overflow-hidden border-b border-cyber-border/40 bg-[#070b12]"
+          className="relative w-full min-h-screen flex flex-col justify-center overflow-hidden border-b border-cyber-border/40"
         >
           {/* Fallback anchor for overview */}
           <div id="overview" className="absolute -top-24" aria-hidden="true" />
@@ -102,7 +107,7 @@ export default function HomePage() {
               fill
               priority
               sizes="100vw"
-              className="object-cover opacity-20 mix-blend-screen scale-105 filter blur-[0.5px]"
+              className="object-cover opacity-15 mix-blend-screen scale-105 filter blur-[0.5px]"
             />
             {/* Directional Vignette Gradient Masks */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#070b12]/50 via-transparent to-[#070b12]/95" />
@@ -110,13 +115,8 @@ export default function HomePage() {
             <div className="absolute inset-0 bg-cyber-radial opacity-35" />
           </div>
 
-          {/* Interactive Cursor-Reactive Particle Constellation Mesh - In Front of Background */}
-          <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-[2]">
-            <NeuralCanvas className="w-full h-full pointer-events-none opacity-90" />
-          </div>
-
-          {/* Foreground Hero Content Container */}
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 w-full">
+          {/* Foreground Hero Content Container with generous vertical breathing room */}
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 w-full my-auto">
             <HeroSection
               onLaunchTerminal={() => {
                 const el = document.getElementById('playground') || document.getElementById('terminal');
@@ -224,17 +224,16 @@ export default function HomePage() {
             </section>
           </div>
 
-          {/* ================================================================== */}
-          {/* 6. CYBER-EXECUTIVE FOOTER & DIRECT CONTACT COORDINATES             */}
-          {/* ================================================================== */}
-          <footer id="contact" className="border-t border-cyber-border pt-12 pb-16">
-            <div className="grid grid-cols-1 gap-8">
-              <ExecutiveFooter
-                onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
-              />
-            </div>
-          </footer>
         </main>
+
+        {/* ================================================================== */}
+        {/* 6. CYBER-EXECUTIVE FOOTER & DIRECT CONTACT COORDINATES             */}
+        {/* ================================================================== */}
+        <div id="contact" className="relative z-10 w-full grid grid-cols-1">
+          <ExecutiveFooter
+            onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
+          />
+        </div>
 
         {/* Global Command Palette Dialog (Cmd/Ctrl+K) */}
         <CommandPalette

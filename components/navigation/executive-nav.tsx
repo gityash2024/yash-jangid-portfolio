@@ -117,28 +117,14 @@ export function ExecutiveNav({
           </Link>
         </div>
 
-        {/* Center: Desktop Navigation Links */}
-        <nav className="hidden xl:flex items-center gap-1">
+        {/* Center: Desktop & Tablet Navigation Links (Always single-line, whitespace-nowrap) */}
+        <nav className="hidden md:flex items-center gap-0.5 lg:gap-1">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
               onMouseEnter={playHover}
-              className="px-2.5 py-1.5 rounded-md text-xs font-medium text-cyber-secondary hover:text-white hover:bg-white/5 transition-all"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        {/* Fallback Nav for medium-width desktop */}
-        <nav className="hidden md:flex xl:hidden items-center gap-1">
-          {navLinks.slice(0, 5).map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onMouseEnter={playHover}
-              className="px-2 py-1.5 rounded-md text-xs font-medium text-cyber-secondary hover:text-white hover:bg-white/5 transition-all"
+              className="px-1.5 lg:px-2.5 py-1.5 rounded-md text-[11px] lg:text-xs font-medium text-cyber-secondary hover:text-white hover:bg-white/5 transition-all whitespace-nowrap shrink-0"
             >
               {link.label}
             </a>
@@ -146,10 +132,10 @@ export function ExecutiveNav({
         </nav>
 
         {/* Right: Telemetry Widgets (IST Clock, Sound Toggle, Cmd+K, Mobile Toggle) */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-2.5">
           {/* Live IST Clock */}
           <div
-            className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-cyber-surface2/60 border border-cyber-border text-cyber-secondary text-xs font-mono"
+            className="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-cyber-surface2/60 border border-cyber-border text-cyber-secondary text-xs font-mono"
             title="Current Time in Gurugram, India (Asia/Kolkata)"
           >
             <Clock className="w-3.5 h-3.5 text-cyber-accent" />
@@ -193,11 +179,11 @@ export function ExecutiveNav({
             onClick={handleOpenPalette}
             onMouseEnter={playHover}
             aria-label="Open command palette"
-            className="flex items-center gap-2 px-2.5 py-1.5 rounded-md border border-cyber-border bg-cyber-surface2/60 text-cyber-secondary hover:text-white hover:border-cyber-accent/40 hover:bg-cyber-surface2 transition-all text-xs font-mono group"
+            className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-2.5 py-1.5 rounded-md border border-cyber-border bg-cyber-surface2/60 text-cyber-secondary hover:text-white hover:border-cyber-accent/40 hover:bg-cyber-surface2 transition-all text-xs font-mono group"
           >
             <Command className="w-3.5 h-3.5 text-cyber-accent group-hover:scale-110 transition-transform" />
-            <span className="hidden sm:inline">Search</span>
-            <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-black/40 border border-white/10 text-[10px] text-cyber-muted group-hover:text-cyber-secondary">
+            <span className="hidden xl:inline">Search</span>
+            <kbd className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-black/40 border border-white/10 text-[10px] text-cyber-muted group-hover:text-cyber-secondary">
               ⌘K
             </kbd>
           </button>
@@ -206,7 +192,7 @@ export function ExecutiveNav({
           <a
             href="/resume"
             onMouseEnter={playHover}
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium bg-cyber-accent/10 text-cyber-accent border border-cyber-accent/30 hover:bg-cyber-accent hover:text-cyber-dark transition-all"
+            className="hidden xl:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium bg-cyber-accent/10 text-cyber-accent border border-cyber-accent/30 hover:bg-cyber-accent hover:text-cyber-dark transition-all"
           >
             <FileText className="w-3.5 h-3.5" />
             <span>Résumé</span>
@@ -244,7 +230,7 @@ export function ExecutiveNav({
                 key={link.label}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2 rounded-md text-xs font-medium text-cyber-secondary hover:text-white hover:bg-white/5 transition-colors"
+                className="px-3 py-2 rounded-md text-xs font-medium text-cyber-secondary hover:text-white hover:bg-white/5 transition-colors whitespace-nowrap"
               >
                 {link.label}
               </a>

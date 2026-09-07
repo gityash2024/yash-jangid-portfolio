@@ -10,6 +10,9 @@ const config: Config = {
   darkMode: 'class',
   theme: {
     extend: {
+      screens: {
+        xs: '440px',
+      },
       colors: {
         background: '#070b12',
         foreground: '#eef3ff',

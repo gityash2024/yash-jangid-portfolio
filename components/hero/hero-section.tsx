@@ -185,10 +185,10 @@ export function HeroSection({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         {/* Left Column: Headline & Action Triggers */}
         <div className="lg:col-span-7 space-y-6 sm:space-y-8">
-          <div className="space-y-4">
+          <div className="space-y-5 sm:space-y-6">
             <h1
               ref={headlineRef}
-              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.08] text-white"
+              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.2] sm:leading-[1.16] lg:leading-[1.12] text-white"
             >
               Architecting High-Throughput Platforms &amp;{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyber-accent via-cyber-cyan to-cyber-lavender text-glow-accent">
@@ -210,14 +210,14 @@ export function HeroSection({
             </p>
           </div>
 
-          {/* High-Impact CTA Buttons */}
-          <div ref={ctaGroupRef} className="flex flex-wrap items-center gap-3 pt-2">
+          {/* High-Impact CTA Buttons with generous spacing */}
+          <div ref={ctaGroupRef} className="flex flex-wrap items-center gap-3.5 sm:gap-4 pt-4 sm:pt-6">
             {/* Primary CTA: Launch Agent CLI */}
             <a
               href="#terminal"
               onClick={handleTerminalClick}
               onMouseEnter={playHover}
-              className="inline-flex items-center gap-2.5 px-5 sm:px-6 py-3 rounded-xl text-sm font-mono font-semibold bg-cyber-accent text-cyber-dark hover:bg-cyber-cyan hover:shadow-glow-cyan transition-all duration-200 shadow-md group"
+              className="inline-flex items-center gap-2.5 px-5 sm:px-6 py-3.5 rounded-xl text-sm font-mono font-semibold bg-cyber-accent text-cyber-dark hover:bg-cyber-cyan hover:shadow-glow-cyan transition-all duration-200 shadow-md group whitespace-nowrap"
             >
               <Terminal className="w-4 h-4 text-cyber-dark group-hover:rotate-12 transition-transform duration-200" />
               <span>Launch Agent CLI</span>
@@ -228,7 +228,7 @@ export function HeroSection({
               href="#architecture"
               onClick={handleArchitectureClick}
               onMouseEnter={playHover}
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium bg-cyber-surface2 hover:bg-cyber-surface2/80 border border-cyber-border hover:border-cyber-accent/50 text-white transition-all duration-200 shadow-sm group"
+              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl text-sm font-medium bg-cyber-surface2 hover:bg-cyber-surface2/80 border border-cyber-border hover:border-cyber-accent/50 text-white transition-all duration-200 shadow-sm group whitespace-nowrap"
             >
               <Layers className="w-4 h-4 text-cyber-accent group-hover:text-cyber-cyan transition-colors" />
               <span>Explore Architecture</span>
@@ -239,7 +239,7 @@ export function HeroSection({
             <a
               href="/resume"
               onMouseEnter={playHover}
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium bg-transparent border border-cyber-border hover:border-white/20 text-cyber-secondary hover:text-white hover:bg-white/5 transition-all duration-200"
+              className="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl text-sm font-medium bg-transparent border border-cyber-border hover:border-white/20 text-cyber-secondary hover:text-white hover:bg-white/5 transition-all duration-200 whitespace-nowrap"
             >
               <FileText className="w-4 h-4 text-cyber-cyan" />
               <span>Download Résumé</span>
@@ -251,7 +251,7 @@ export function HeroSection({
               onClick={handleCopyEmail}
               onMouseEnter={playHover}
               aria-label="Copy contact email"
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-xs font-mono bg-cyber-surface2/60 border border-cyber-border hover:border-cyber-accent/40 text-cyber-secondary hover:text-white transition-all"
+              className="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl text-xs font-mono bg-cyber-surface2/60 border border-cyber-border hover:border-cyber-accent/40 text-cyber-secondary hover:text-white transition-all whitespace-nowrap"
             >
               <Mail className="w-3.5 h-3.5 text-cyber-accent" />
               <span>{copiedEmail ? 'Copied ✓' : 'gityash2024@gmail.com'}</span>
@@ -266,7 +266,7 @@ export function HeroSection({
       </div>
 
       {/* VERIFIED STATS PILLS (10K+ users, 10K+ req/min, 40% latency drop, 99.9% uptime) */}
-      <div ref={statsContainerRef} className="pt-4 sm:pt-6">
+      <div ref={statsContainerRef} className="pt-8 sm:pt-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           {verifiedStats.map((stat) => {
             const Icon = stat.icon;

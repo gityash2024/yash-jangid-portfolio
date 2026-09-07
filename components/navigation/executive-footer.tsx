@@ -34,9 +34,10 @@ import { cn } from '@/lib/utils';
 export interface ExecutiveFooterProps {
   onOpenCommandPalette?: () => void;
   className?: string;
+  id?: string;
 }
 
-export function ExecutiveFooter({ onOpenCommandPalette, className }: ExecutiveFooterProps) {
+export function ExecutiveFooter({ onOpenCommandPalette, className, id }: ExecutiveFooterProps) {
   const mounted = useMounted();
   const { playClick, playHover, playSuccessChime, isMuted, toggleMute } = useSound();
 
@@ -128,10 +129,10 @@ export function ExecutiveFooter({ onOpenCommandPalette, className }: ExecutiveFo
 
   return (
     <footer
-      id="contact"
+      id={id}
       aria-label="Executive Footer & Direct Contact Coordinates"
       className={cn(
-        'relative border-t border-cyber-border/80 bg-gradient-to-b from-cyber-dark via-[#080d16] to-[#05080e] pt-16 pb-20 space-y-12 overflow-hidden',
+        'relative border-t border-cyber-border/80 bg-gradient-to-b from-cyber-dark/85 via-[#080d16]/90 to-[#05080e]/95 backdrop-blur-md pt-16 pb-20 overflow-hidden',
         className
       )}
     >
@@ -143,7 +144,9 @@ export function ExecutiveFooter({ onOpenCommandPalette, className }: ExecutiveFo
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyber-accent/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-cyber-cyan/5 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Cluster Telemetry & Dual Atomic Clocks Bar */}
+      {/* Centered Content Container */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
+        {/* Cluster Telemetry & Dual Atomic Clocks Bar */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4 p-4 sm:p-5 rounded-2xl bg-cyber-surface2/60 border border-cyber-border backdrop-blur-md">
         {/* Telemetry Status Nodes */}
         <div className="md:col-span-8 flex flex-wrap items-center gap-4 text-xs font-mono">
@@ -454,52 +457,59 @@ export function ExecutiveFooter({ onOpenCommandPalette, className }: ExecutiveFo
         </div>
       </div>
 
-      {/* Technology Stack Matrix Row */}
-      <div className="pt-6 border-t border-cyber-border/60 space-y-2">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-cyber-muted block">
-          Production Architecture Foundation
-        </span>
-        <div className="flex flex-wrap items-center gap-2">
-          {techStackBadges.map((badge) => (
-            <div
-              key={badge.label}
-              className={cn(
-                'px-2.5 py-1 rounded-md bg-cyber-surface2/50 border text-[11px] font-mono flex items-center gap-1.5',
-                badge.color
-              )}
-            >
-              <span className="font-semibold">{badge.label}</span>
-              <span className="text-cyber-muted text-[10px]">({badge.desc})</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Bottom Bar: Copyright, Timezone & Back to Top */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-cyber-border/60 pt-8 text-xs font-mono text-cyber-muted">
-        <div className="flex flex-wrap items-center gap-3">
-          <span>© 2026 Yash Jangid</span>
-          <span>·</span>
-          <span>Built with Next.js 15 &amp; React 19</span>
-          <span className="hidden md:inline">·</span>
-          <div className="hidden md:flex items-center gap-1.5 text-cyber-muted text-[11px]">
-            <Shield className="w-3 h-3 text-cyber-accent" />
-            <span className="text-cyber-secondary">GPG: 0x7E4B9A12 · ED25519 Verified Commits</span>
+        {/* Technology Stack Matrix Row */}
+        <div className="pt-8 border-t border-cyber-border/60 space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-cyber-muted block font-semibold">
+              Production Architecture Foundation
+            </span>
+            <span className="text-[10px] font-mono text-cyber-secondary/70">
+              Engineered for Sub-100ms P99 Latency &amp; Zero-Hydration Overhead
+            </span>
+          </div>
+          <div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-2.5">
+            {techStackBadges.map((badge, idx) => (
+              <div
+                key={badge.label}
+                className={cn(
+                  'px-3 py-2.5 rounded-xl bg-cyber-surface2/60 border text-[11px] font-mono flex flex-col items-start justify-center gap-0.5 hover:border-cyber-accent/40 transition-colors shadow-sm',
+                  badge.color,
+                  idx === 6 ? 'col-span-2 xs:col-span-3 sm:col-span-2 lg:col-span-1' : ''
+                )}
+              >
+                <span className="font-semibold whitespace-nowrap">{badge.label}</span>
+                <span className="text-cyber-muted text-[10px] whitespace-nowrap">{badge.desc}</span>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="flex items-center gap-4">
-          <span>Gurugram, India (IST / UTC+5:30)</span>
-          <button
-            type="button"
-            onClick={handleScrollToTop}
-            onMouseEnter={playHover}
-            aria-label="Scroll back to top"
-            className="p-2.5 rounded-xl bg-cyber-surface2 border border-cyber-border hover:border-cyber-accent/50 text-cyber-secondary hover:text-white hover:shadow-glow-accent transition-all"
-            title="Scroll back to top"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </button>
+        {/* Bottom Bar: Copyright, Timezone & Back to Top */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-cyber-border/60 pt-8 text-xs font-mono text-cyber-muted">
+          <div className="flex flex-wrap items-center gap-3">
+            <span>© 2026 Yash Jangid</span>
+            <span>·</span>
+            <span>Built with Next.js 15 &amp; React 19</span>
+            <span className="hidden md:inline">·</span>
+            <div className="hidden md:flex items-center gap-1.5 text-cyber-muted text-[11px]">
+              <Shield className="w-3 h-3 text-cyber-accent" />
+              <span className="text-cyber-secondary">GPG: 0x7E4B9A12 · ED25519 Verified Commits</span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <span>Gurugram, India (IST / UTC+5:30)</span>
+            <button
+              type="button"
+              onClick={handleScrollToTop}
+              onMouseEnter={playHover}
+              aria-label="Scroll back to top"
+              className="p-2.5 rounded-xl bg-cyber-surface2 border border-cyber-border hover:border-cyber-accent/50 text-cyber-secondary hover:text-white hover:shadow-glow-accent transition-all"
+              title="Scroll back to top"
+            >
+              <ArrowUp className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       </div>
     </footer>
