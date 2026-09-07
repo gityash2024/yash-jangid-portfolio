@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Manrope:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-manrope: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-dm-mono: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --font-playfair: 'Playfair Display', Georgia, serif;
+    --bg-dark: #070b12;
+    --surface-card: #0c1320;
+    --surface-elevated: #111a2a;
+    --accent-periwinkle: #7c8cff;
+    --accent-cyan: #8cd8ff;
+    --accent-green: #78e6bc;
+    --accent-lavender: #b8a8ff;
+    --border-hairline: rgba(255, 255, 255, 0.08);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: #070b12;
+    color: #eef3ff;
+    font-family: var(--font-manrope), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Custom Cyber Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #070b12;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #192338;
+    border-radius: 4px;
+    border: 2px solid #070b12;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #7c8cff;
+  }
+
+  ::selection {
+    background: rgba(124, 140, 255, 0.3);
+    color: #ffffff;
+  }
+}
+
+@layer utilities {
+  .glass-nav {
+    background: rgba(7, 11, 18, 0.82);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-card {
+    background: rgba(12, 19, 32, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-card:hover {
+    border-color: rgba(124, 140, 255, 0.35);
+  }
+
+  .text-glow-accent {
+    text-shadow: 0 0 25px rgba(124, 140, 255, 0.5);
+  }
+
+  .text-glow-cyan {
+    text-shadow: 0 0 25px rgba(140, 216, 255, 0.5);
+  }
+
+  .border-glow-accent {
+    border-color: rgba(124, 140, 255, 0.4);
+    box-shadow: 0 0 24px rgba(124, 140, 255, 0.15);
+  }
+}

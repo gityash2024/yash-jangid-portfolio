@@ -1,11 +1,11 @@
-# Yash Jangid — Senior Full Stack Engineer
+# Yash Jangid — Senior Full Stack Engineer & AI Platform Architect
 
 <p align="center">
-  <img src="assets/yash-jangid.webp" width="140" alt="Yash Jangid" />
+  <img src="public/images/yash-jangid.webp" width="140" alt="Yash Jangid" style="border-radius: 50%; box-shadow: 0 0 25px rgba(99,102,241,0.3);" />
 </p>
 
 <p align="center">
-  <strong>Healthcare AI · Real-time Systems · Agentic Development · Product Engineering</strong>
+  <strong>Healthcare AI · Real-time Systems · Agentic Workflows · Distributed Architecture</strong>
 </p>
 
 <p align="center">
@@ -16,142 +16,159 @@
 
 ---
 
-## About this portfolio
+## 🌟 Overview
 
-This repository contains my personal engineering portfolio. It is designed as a polished, high-performance static experience focused on the systems I have built, the engineering decisions behind them, and measurable production impact.
+This repository houses the modern, high-performance personal engineering portfolio for **Yash Jangid**. Built with **Next.js 15 (App Router)** and **React 19**, it showcases mission-critical software systems, real-time distributed platforms, and agentic workflows with dark luxury Bento Grid aesthetics, bespoke 3D visual renders, and signature interactive engines.
 
-The site deliberately avoids fake client screenshots, stock imagery and placeholder media. My real portrait is stored in the repository, while project visuals are purpose-built architecture/workflow illustrations based on the actual systems described in the case studies.
+---
 
-## Professional profile
+## 🚀 Technology Stack
 
-I am a Senior Full Stack Engineer based in Gurugram, India, with nearly five years of experience building production software across healthcare AI, real-time trading, Web3, job-tech and enterprise products.
+- **Framework**: Next.js 15.2.0 (App Router, Turbopack support)
+- **UI Runtime**: React 19 & React-DOM 19
+- **Styling**: Tailwind CSS, CSS Custom Properties, Dark Luxury Design System
+- **Language**: TypeScript (Strict Mode)
+- **Audio Synthesis**: Web Audio API (real-time harmonic oscillator synthesis, stereo panners, high-pass filtration)
+- **Graphics & Neural Canvas**: HTML5 2D Canvas with dynamic particle clustering and spatial affinity
+- **Icons**: Lucide React
+- **Testing**: Native Node.js test runner with 287 automated unit, boundary, scenario, and stress tests
 
-My current work at Imaging IQ focuses on healthcare AI and medical-imaging workflows involving React, Node.js, DICOM/NIfTI, OHIF Viewer, Orthanc, orchestration services, LLM workflows and AI-assisted analysis.
+---
 
-Previously at ITH Technologies, I worked across full-stack product development, microservices, real-time systems, Web3 platforms, reusable engineering packages and CI/CD infrastructure.
+## 🎮 Signature Interactive Engines
 
-## Engineering impact
+1. **AgentCLI Terminal** (`components/AgentCLI.tsx`):
+   - Interactive terminal emulator with command autocompletion, sound synthesis, and real-time execution.
+   - Built-in commands: `help`, `skills`, `projects`, `metrics`, `resume`, `contact`, `clear`.
+2. **System Metrics Visualizer** (`components/SystemMetricsVisualizer.tsx`):
+   - Live telemetry dashboard rendering simulated node latency, cluster throughput, and health indicators.
+3. **Command Palette** (`components/CommandPalette.tsx`):
+   - Keyboard-driven modal (`Ctrl+K` / `Cmd+K`) supporting deep navigation, project filtering, and instant actions.
+4. **Neural Canvas** (`components/NeuralCanvas.tsx`):
+   - Interactive generative particle background reacting to cursor physics and ambient viewport motion.
+5. **Harmonic Audio Engine** (`lib/sound.ts`):
+   - Browser-synthesized micro-feedback (clicks, chirps, telemetries) without external audio file requests.
 
-- 10,000+ users served across production platforms
-- 10,000+ API requests/minute handled in real-time trading systems
-- Sub-100ms critical response paths
-- 40% reduction in server latency
-- Deployment time reduced from roughly 2 hours to 15 minutes
-- 99.9% uptime across production Web3 platforms
-- 5+ Web3 platforms architected and deployed
-- 8+ reusable internal npm packages created
+---
 
-## Selected work
+## 🖼️ Bespoke 3D Visual Assets
 
-### AI Medical Imaging Pipeline Platform
+All project case studies and hero sections feature custom-generated, photorealistic 3D visual assets stored in `public/images/`:
+- `hero-neural.jpg` — 3D neural lattice and quantum computing nodes.
+- `medical-imaging.jpg` — Volumetric 3D MRI/DICOM cranial diagnostic visualization.
+- `trading-terminal.jpg` — High-frequency crypto trading order books and candlestick matrices.
+- `recruin-platform.jpg` — Real-time talent matching graph and candidate telemetry mesh.
+- `crypto-launchpad.jpg` — Web3 token launchpad with staking and cryptographic locks.
+- `yash-jangid.webp` — Authentic executive portrait.
 
-Healthcare AI platform work spanning DICOM/NIfTI ingestion, medical-image visualization, OHIF Viewer, Orthanc, backend orchestration, workflow state and AI-assisted analysis.
+*High-contrast SVG schematic fallbacks are also preserved in `assets/`.*
 
-![Medical imaging architecture](assets/medical-imaging-system.svg)
+---
 
-**Core stack:** React · Node.js · DICOM · NIfTI · OHIF · Orthanc · LLM orchestration
-
-### CEX / DEX Strategy Portal
-
-High-throughput trading infrastructure built around synchronized market data, exchange/order workflows, Redis caching and WebSocket-driven updates.
-
-![Trading infrastructure](assets/trading-infrastructure.svg)
-
-**Core stack:** React · Node.js · Redis · WebSockets · Web3.js
-
-### Recruin
-
-Recruiting platform covering candidate matching, applicant tracking, secure access, real-time chat and file workflows for 5,000+ active users.
-
-![Recruin workflow](assets/recruin-platform.svg)
-
-**Core stack:** React · Node.js · MongoDB · Redux · AWS S3
-
-### TDX Launchpad
-
-Production Web3 launchpad with product workflows, analytics, KYC/AML-oriented flows, REST APIs and real-time reporting.
-
-**Core stack:** React · Node.js · MongoDB · Web3.js
-
-## Skills
-
-**Frontend:** TypeScript, JavaScript, React, Redux Toolkit, responsive product interfaces, workflow-heavy UI
-
-**Backend & architecture:** Node.js, Express, REST APIs, WebSockets, microservices, system design, MongoDB, Redis, JWT, Socket.io
-
-**AI / agentic engineering:** LLM orchestration, agentic workflows, MCP, structured tool execution, OpenAI Codex, Claude Code, Cursor, Antigravity
-
-**Healthcare AI:** DICOM, NIfTI, OHIF Viewer, Orthanc, medical-imaging pipelines
-
-**Cloud & delivery:** AWS EC2/S3/Lambda, Docker, Nginx, GitHub Actions, CI/CD, Jest, Mocha, Postman
-
-## Portfolio structure
+## 📁 Project Architecture
 
 ```text
 .
-├── index.html                         # Main landing page
-├── about/index.html                   # About / engineering story
-├── work/index.html                    # Selected work overview
-├── work/medical-imaging/index.html    # Healthcare AI case study
-├── work/trading-infrastructure/       # Real-time trading case study
-├── work/recruin/                      # Recruin case study
-├── contact/index.html                 # Contact page
-├── resume/index.html                  # Printable résumé
-├── assets/                            # Real portrait + project visuals
-├── styles.css                         # Base visual system
-├── v2.css                             # Premium layout/design layer
-├── v3.css                             # Final polish/responsive layer
-├── script.js                          # Navigation, GSAP and interactions
-├── v3.js                              # Parallax and premium micro-interactions
-└── vercel.json                        # Vercel routing/security configuration
+├── app/
+│   ├── globals.css              # Dark luxury theme tokens and glassmorphism
+│   ├── layout.tsx               # Root layout with Command Palette and Audio Provider
+│   ├── page.tsx                 # Main Bento Grid portfolio landing page
+│   └── resume/
+│       └── page.tsx             # Dedicated printable executive curriculum vitae
+├── assets/                      # Authentic portrait & schematic SVG fallbacks
+├── components/                  # Modular React 19 UI components
+│   ├── AgentCLI.tsx             # Interactive terminal emulator
+│   ├── AudioEngine.tsx          # Sound controller UI toggle
+│   ├── BentoCard.tsx            # Fluid Bento Grid container with hover effects
+│   ├── CommandPalette.tsx       # Global Cmd+K launcher
+│   ├── MetricCounter.tsx        # Animated telemetry counter
+│   ├── NeuralCanvas.tsx         # Real-time particle lattice
+│   └── SystemMetricsVisualizer.tsx # Live throughput and latency graphs
+├── data/
+│   └── portfolio.ts             # Strongly-typed engineering case studies & resume data
+├── hooks/                       # Reusable React hooks
+├── lib/
+│   ├── sound.ts                 # Web Audio API harmonic sound synthesizer
+│   └── utils.ts                 # Class merger and formatting utilities
+├── public/
+│   ├── favicon.ico              # Site favicon
+│   └── images/                  # Bespoke 3D visuals and executive portrait
+├── tests/                       # 287 automated tests (coverage, boundaries, stress)
+│   ├── run-e2e.mjs              # Master test runner orchestrator
+│   ├── tier1-features.mjs       # Feature coverage suite
+│   ├── tier2-boundaries.mjs     # Boundary & edge case suite
+│   ├── tier3-combinations.mjs   # Combinatorial interaction suite
+│   ├── tier4-scenarios.mjs      # Real-world journey simulator
+│   └── stress-challenger.mjs    # Stress, memory, and chaos challenger suite
+├── next.config.ts               # Next.js 15 image optimization & security headers
+├── package.json                 # Dependency manifest & test scripts
+├── tailwind.config.ts           # Design tokens and color palette
+└── tsconfig.json                # TypeScript strict configuration
 ```
 
-## Motion & interaction
+---
 
-The portfolio uses GSAP and ScrollTrigger for progressive reveal animation, subtle parallax, hero motion and scroll-driven interactions. Additional custom JavaScript provides magnetic button interactions, card perspective motion, mobile navigation and live IST time display.
+## 🧪 Testing & Quality Assurance
 
-The experience also respects `prefers-reduced-motion` so motion-heavy effects are disabled for users who request reduced animation.
-
-## Design direction
-
-The visual system uses a restrained graphite/navy base with indigo and cool-blue accents, editorial typography, compact hierarchy, deliberate spacing, glass navigation and architecture-focused project visuals. The goal is to feel like a senior engineer's product portfolio rather than a generic template or AI-generated landing page.
-
-## Pages
-
-- `/` — Home
-- `/about` — Background, journey, engineering principles and recognition
-- `/work` — Selected engineering work
-- `/work/medical-imaging` — AI Medical Imaging case study
-- `/work/trading-infrastructure` — CEX/DEX Strategy Portal case study
-- `/work/recruin` — Recruin case study
-- `/resume` — Browser-friendly résumé with Print / Save PDF support
-- `/contact` — Contact and opportunity-fit page
-
-## Local preview
-
-Because the portfolio is static, no build step is required.
+The codebase includes an enterprise-grade automated test suite containing **287 tests** with **100% pass rate**:
 
 ```bash
-python -m http.server 8080
+# Run the complete test suite
+npm test
+# Or run directly via Node.js
+node tests/run-e2e.mjs
 ```
 
-Then open `http://localhost:8080`.
+### Test Suite Highlights:
+- **Tier 1 (Feature Coverage)**: 130 tests verifying all components, assets, routes, and data models.
+- **Tier 2 (Boundary & Error Handling)**: 65 tests verifying bounds, invalid queries, and responsive layouts.
+- **Tier 3 (Combinatorial Matrices)**: 39 tests testing cross-feature interactions and concurrent states.
+- **Tier 4 (User Journeys)**: 13 scenario-based end-to-end tests validating recruiter and hiring manager flows.
+- **Tier 5 (Stress & Challenger)**: 40 tests testing rapid inputs, memory stability, and event floods.
 
-## Deployment
+---
 
-The repository is configured for Vercel through `vercel.json`. The production branch is `main`. When the Vercel project is linked to this GitHub repository, pushes to `main` should trigger production deployments automatically.
+## 💻 Local Development
 
-## Recognition & education
+### Prerequisites
+- Node.js 18.17+ or 20+
+- npm 9+
 
-- Technical Excellence Award — 2023
-- Most Promising Newcomer — 2023
-- B.Tech Computer Science, UPES — GPA 8.9/10, 2022
+### Setup
+```bash
+# 1. Install dependencies
+npm install
 
-## Contact
+# 2. Start local development server
+npm run dev
 
-**Yash Jangid**  
-Senior Full Stack Engineer  
-Gurugram, India  
-Email: gityash2024@gmail.com  
-LinkedIn: https://in.linkedin.com/in/yashjangid091099  
-GitHub: https://github.com/gityash2024
+# 3. Open in browser
+# Navigate to http://localhost:3000
+```
+
+### Production Build
+```bash
+# Build production bundle
+npm run build
+
+# Start production server
+npm start
+```
+
+---
+
+## 🔒 Security & Deployment
+
+- HTTP Security Headers configured in `next.config.ts`:
+  - `X-Content-Type-Options: nosniff`
+  - `Referrer-Policy: strict-origin-when-cross-origin`
+- Ready for immediate one-click zero-config deployment to **Vercel**, **AWS Amplify**, or **Docker**.
+
+---
+
+## 📬 Contact & Links
+
+- **Yash Jangid** — Senior Full Stack Engineer & AI Platform Architect
+- **Email**: [gityash2024@gmail.com](mailto:gityash2024@gmail.com)
+- **LinkedIn**: [linkedin.com/in/yashjangid091099](https://in.linkedin.com/in/yashjangid091099)
+- **GitHub**: [github.com/gityash2024](https://github.com/gityash2024)
