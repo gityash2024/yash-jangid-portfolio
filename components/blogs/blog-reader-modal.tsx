@@ -59,6 +59,24 @@ export function BlogReaderModal({
     };
   }, []);
 
+  // Lock body scroll and synchronize Lenis when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      const win = typeof window !== 'undefined' ? (window as unknown as { __lenis?: { stop: () => void; start: () => void } }) : null;
+      if (win?.__lenis?.stop) {
+        win.__lenis.stop();
+      }
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        if (win?.__lenis?.start) {
+          win.__lenis.start();
+        }
+      };
+    }
+  }, [isOpen]);
+
   // Keyboard accessibility: Escape closes modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -303,6 +321,7 @@ ${blog.content}
       role="dialog"
       aria-modal="true"
       aria-label={blog.title}
+      data-lenis-prevent
       className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 lg:p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
     >
       {/* Click backdrop to dismiss */}
@@ -313,7 +332,10 @@ ${blog.content}
       />
 
       {/* Reader Container */}
-      <div className="relative z-10 w-full max-w-4xl max-h-[92vh] flex flex-col rounded-2xl bg-cyber-dark/95 border border-cyber-border/80 shadow-2xl overflow-hidden backdrop-blur-2xl">
+      <div
+        data-lenis-prevent
+        className="relative z-10 w-full max-w-4xl max-h-[92vh] flex flex-col rounded-2xl bg-cyber-dark/95 border border-cyber-border/80 shadow-2xl overflow-hidden backdrop-blur-2xl"
+      >
         {/* Top Control Header */}
         <div className="flex-none px-4 sm:px-6 py-3.5 border-b border-cyber-border/80 bg-cyber-surface/90 flex items-center justify-between gap-3">
           {/* Category & Status */}
@@ -441,7 +463,13 @@ ${blog.content}
         </div>
 
         {/* Scrollable Article Body */}
-        <div className="flex-1 overflow-y-auto px-5 sm:px-8 py-6 sm:py-8 space-y-6">
+        <div
+          data-lenis-prevent
+          tabIndex={0}
+          onWheel={(e) => e.stopPropagation()}
+          style={{ overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch', touchAction: 'pan-y' }}
+          className="flex-1 overflow-y-auto px-5 sm:px-8 py-6 sm:py-8 space-y-6 custom-scrollbar overscroll-contain touch-pan-y outline-none"
+        >
           {/* Article Header */}
           <div className="space-y-3 border-b border-cyber-border/80 pb-6">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-tight">

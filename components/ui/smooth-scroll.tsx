@@ -28,6 +28,9 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
     });
 
     lenisRef.current = lenis;
+    if (typeof window !== 'undefined') {
+      (window as unknown as { __lenis?: Lenis | null }).__lenis = lenis;
+    }
 
     let animId: number;
     function raf(time: number) {
@@ -58,6 +61,9 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
       document.removeEventListener('click', handleAnchorClick);
       lenis.destroy();
       lenisRef.current = null;
+      if (typeof window !== 'undefined' && (window as unknown as { __lenis?: Lenis | null }).__lenis === lenis) {
+        (window as unknown as { __lenis?: Lenis | null }).__lenis = null;
+      }
     };
   }, []);
 

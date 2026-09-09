@@ -49,8 +49,15 @@ export function CaseStudyModal({
     if (isOpen) {
       const originalOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
+      const win = typeof window !== 'undefined' ? (window as unknown as { __lenis?: { stop: () => void; start: () => void } }) : null;
+      if (win?.__lenis?.stop) {
+        win.__lenis.stop();
+      }
       return () => {
         document.body.style.overflow = originalOverflow;
+        if (win?.__lenis?.start) {
+          win.__lenis.start();
+        }
       };
     }
   }, [isOpen]);
@@ -85,6 +92,7 @@ export function CaseStudyModal({
         role="dialog"
         aria-modal="true"
         aria-labelledby="case-study-title"
+        data-lenis-prevent
       >
         {/* Backdrop blur overlay */}
         <motion.div
@@ -103,6 +111,7 @@ export function CaseStudyModal({
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: '100%', opacity: 0.8 }}
           transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+          data-lenis-prevent
           className="relative z-10 w-full max-w-4xl h-full bg-cyber-dark/95 border-l border-cyber-border shadow-2xl flex flex-col backdrop-blur-xl overflow-hidden"
         >
           {/* Top Bar / Header Navigation */}
@@ -180,7 +189,13 @@ export function CaseStudyModal({
           </div>
 
           {/* Scrollable Modal Content */}
-          <div className="flex-1 overflow-y-auto px-6 sm:px-8 py-6 space-y-8 custom-scrollbar">
+          <div
+            data-lenis-prevent
+            tabIndex={0}
+            onWheel={(e) => e.stopPropagation()}
+            style={{ overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch', touchAction: 'pan-y' }}
+            className="flex-1 min-h-0 overflow-y-auto px-6 sm:px-8 py-6 space-y-8 custom-scrollbar overscroll-contain touch-pan-y outline-none"
+          >
             {/* Title & Headline Header */}
             <div className="space-y-3 border-b border-cyber-border pb-6">
               <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-cyber-accent">
