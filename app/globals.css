@@ -52,10 +52,20 @@
     color: #0f172a;
   }
 
-  /* Custom Cyber Scrollbar */
+  /* Sleek Minimalist Cyber Scrollbar */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: #1e293b #070b12;
+  }
+
+  html.light,
+  [data-theme="light"] {
+    scrollbar-color: #cbd5e1 #f8fafc;
+  }
+
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
   }
 
   ::-webkit-scrollbar-track {
@@ -68,19 +78,21 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #192338;
-    border-radius: 4px;
-    border: 2px solid #070b12;
+    background: #1e293b;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background 0.2s ease;
   }
 
   html.light ::-webkit-scrollbar-thumb,
   [data-theme="light"] ::-webkit-scrollbar-thumb {
     background: #cbd5e1;
-    border: 2px solid #f1f5f9;
+    border: 1px solid rgba(0, 0, 0, 0.05);
   }
 
   ::-webkit-scrollbar-thumb:hover {
     background: #7c8cff;
+    box-shadow: 0 0 10px rgba(124, 140, 255, 0.5);
   }
 
   html.light ::-webkit-scrollbar-thumb:hover,
@@ -95,6 +107,40 @@
 }
 
 @layer utilities {
+  /* Universal Crisp Anti-Blur Fixes for Chrome/WebKit/Firefox on Windows */
+  *, *::before, *::after {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Force discrete GPU layer allocation without rasterization texture downsampling */
+  article,
+  button,
+  a,
+  input,
+  textarea,
+  .glass-card,
+  .hero-stat-card,
+  [class*="group-hover"],
+  [class*="hover:"],
+  [class*="transition-"] {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Prevent text from blurring during hover animations */
+  .glass-card *,
+  .hero-stat-card *,
+  button *,
+  a * {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
   .glass-nav {
     background: rgba(7, 11, 18, 0.85);
     backdrop-filter: blur(20px) saturate(180%);
@@ -133,17 +179,18 @@
     box-shadow: 0 20px 35px -10px rgba(99, 102, 241, 0.1);
   }
 
+  /* Crisp laser typography glows without muddy blur radius */
   .text-glow-accent {
-    text-shadow: 0 0 25px rgba(124, 140, 255, 0.5);
+    text-shadow: 0 0 12px rgba(124, 140, 255, 0.35);
   }
 
   html.light .text-glow-accent,
   [data-theme="light"] .text-glow-accent {
-    text-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+    text-shadow: 0 0 10px rgba(99, 102, 241, 0.25);
   }
 
   .text-glow-cyan {
-    text-shadow: 0 0 25px rgba(140, 216, 255, 0.5);
+    text-shadow: 0 0 12px rgba(140, 216, 255, 0.35);
   }
 
   .border-glow-accent {

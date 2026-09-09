@@ -4,7 +4,7 @@
 export interface ProjectItem {
   id: string;
   title: string;
-  category: 'AI Platform' | 'Web3 / Fintech' | 'Healthcare AI' | 'Talent Tech';
+  category: 'AI Platform' | 'Web3 / Fintech' | 'Healthcare AI' | 'Talent Tech' | 'Geospatial & Climate';
   description: string;
   impact: string;
   image: string;
@@ -290,6 +290,105 @@ export const flagshipProjects: ProjectItem[] = [
       ],
       outcome:
         'Attained 92% automated match accuracy, scaled to over 5,000 active users, and delivered an uninterrupted 100% secure hiring workflow.',
+    },
+  },
+  {
+    id: 'softlogic',
+    title: 'Softlogic AI Studio',
+    category: 'AI Platform',
+    description:
+      'Enterprise LLM fine-tuning and agentic workflow orchestration suite. Empowers enterprise teams to run parameter-efficient LoRA adapters, evaluate streaming completions, and execute deterministic multi-tool DAGs.',
+    impact: '3.8x faster model deployment & 99.4% task completion rate',
+    image: '/images/softlogic-studio.jpg',
+    tags: ['Next.js 15', 'TypeScript', 'FastAPI', 'PyTorch', 'vLLM', 'Qdrant', 'Docker', 'Tailwind CSS'],
+    metrics: [
+      { label: 'Model Deployment', value: '3.8x faster' },
+      { label: 'Task Accuracy', value: '99.4% SLA' },
+      { label: 'Token Latency', value: '< 18ms TTFT' },
+      { label: 'Vector Indexing', value: '1.2M docs/hr' },
+    ],
+    caseStudy: {
+      overview:
+        'Enterprise clients required a unified platform to fine-tune open-weight models (Llama 3, Mistral), index proprietary documentation with dense vector embeddings, and automate complex customer and data workflows via autonomous agents.',
+      architecture: [
+        'FastAPI asynchronous backend with vLLM high-throughput tensor-parallel serving.',
+        'Qdrant vector database for hybrid semantic and keyword search.',
+        'React 19 / Next.js 15 interactive playground for real-time prompt engineering and telemetry inspection.',
+        'Model Context Protocol (MCP) tool bindings for deterministic external API access.',
+      ],
+      technicalHighlights: [
+        'Reduced model deployment cycle from 2 weeks to 3 days using automated LoRA merge pipelines.',
+        'Engineered client-side streaming token parser with live latency visualization.',
+        'Built deterministic pipeline telemetry with full execution traces.',
+      ],
+      outcome:
+        'Accelerated model deployment by 3.8x, achieved 99.4% tool invocation precision across 15 enterprise clients, and served millions of daily inferences with zero downtime.',
+    },
+  },
+  {
+    id: 'mirsat',
+    title: 'Mirsat Geointelligence Engine',
+    category: 'AI Platform',
+    description:
+      'Real-time low-earth orbit (LEO) satellite telemetry ingestion and geospatial analytics platform. Processes synthetic aperture radar (SAR) feeds, orbital ephemeris propagation (SGP4), and live geospatial map overlays.',
+    impact: '50,000+ telemetry frames/sec & sub-50ms map rendering',
+    image: '/images/mirsat-satellite.jpg',
+    tags: ['React', 'WebGL', 'Mapbox GL', 'Node.js', 'Go', 'TimescaleDB', 'Kafka', 'WebSockets'],
+    metrics: [
+      { label: 'Telemetry Ingestion', value: '50K frames/sec' },
+      { label: 'Map Frame Rate', value: '60 FPS stable' },
+      { label: 'End-to-End Latency', value: '< 45ms' },
+      { label: 'Tracked Satellites', value: '120+ active' },
+    ],
+    caseStudy: {
+      overview:
+        'Earth observation networks operate high-frequency constellations transmitting raw sensor streams, GPS telemetry, and SAR radar imagery. Mirsat needed to ingest, validate, and project this data onto 3D globe interfaces in sub-second intervals.',
+      architecture: [
+        'Apache Kafka ingestion cluster partitioning raw telemetry bursts.',
+        'High-performance Go microservices calculating orbital ephemeris coordinates via SGP4 propagation algorithms.',
+        'TimescaleDB hypertable storage with WebGL GPU rendering on frontend.',
+        'Sub-50ms WebSocket fanout architecture to mission control operators.',
+      ],
+      technicalHighlights: [
+        'Built WebGL geospatial particle renderer maintaining silky 60 FPS under 100,000 concurrent orbital coordinates.',
+        'Implemented anomaly detection algorithms identifying satellite trajectory deviations in real time.',
+        'Designed sub-50ms WebSocket fanout architecture to mission control operators.',
+      ],
+      outcome:
+        'Ingested over 50,000 telemetry frames per second at <45ms pipeline latency, successfully monitoring 120+ active orbital bodies without data loss.',
+    },
+  },
+  {
+    id: 'sacred-groves',
+    title: 'Sacred Groves Natural Capital Platform',
+    category: 'Web3 / Fintech',
+    description:
+      'Decentralized terrestrial ecosystem preservation platform protecting biodiverse forests through satellite canopy verification, immutable environmental audits, and zero-fee Web3 micro-conservation contracts.',
+    impact: '250,000+ sq meters conserved & 100% cryptographic audit trail',
+    image: '/images/sacred-groves.jpg',
+    tags: ['Next.js', 'Web3.js', 'Ethereum', 'Polygon', 'Leaflet', 'Python GDAL', 'PostgreSQL', 'AWS'],
+    metrics: [
+      { label: 'Conserved Area', value: '250K+ sq meters' },
+      { label: 'Cryptographic Audit', value: '100% on-chain' },
+      { label: 'Satellite Resolution', value: '10m Sentinel-2' },
+      { label: 'System SLA', value: '99.95%' },
+    ],
+    caseStudy: {
+      overview:
+        'Natural capital markets suffer from opaque carbon offsets, double-counting, and lack of ground-truth satellite verification. Sacred Groves required an auditable, transparent web platform linking satellite biomass indices with tamper-proof conservation tokens.',
+      architecture: [
+        'Automated Sentinel-2 multispectral satellite data pipeline computing Normalized Difference Vegetation Index (NDVI).',
+        'Polygon smart contracts recording immutable conservation events.',
+        'Responsive Next.js web application with interactive GIS forest mapping.',
+        'Zero-fee Web3 custody flow ensuring complete security.',
+      ],
+      technicalHighlights: [
+        'Integrated Python GDAL spatial raster processing pipelines to track forest canopy health dynamically.',
+        'Architected gas-optimized smart contracts ensuring verified micro-conservations are permanently recorded on public ledgers.',
+        'Built high-fidelity map exploration UI enabling users to inspect specific forest clusters down to square-meter precision.',
+      ],
+      outcome:
+        'Conserved over 250,000 square meters of high-biodiversity ecosystems with 100% cryptographic auditing and verified 99.95% platform availability.',
     },
   },
 ];

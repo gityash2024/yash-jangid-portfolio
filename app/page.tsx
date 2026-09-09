@@ -35,10 +35,13 @@ import { NeuralCanvas } from '@/components/hero/neural-canvas';
 import { SystemMetricsVisualizer } from '@/components/interactive/system-metrics';
 import { ProjectGrid } from '@/components/projects/project-grid';
 import { AgentCLI } from '@/components/interactive/agent-cli';
+import { BlogsSection } from '@/components/blogs/blogs-section';
 import { ExperienceSection } from '@/components/experience/experience-section';
 import { SkillsMatrix } from '@/components/experience/skills-matrix';
 import { EducationCard } from '@/components/experience/education-card';
 import { CommandPalette } from '@/components/ui/command-palette';
+import { CustomCursor } from '@/components/ui/custom-cursor';
+import { ScrollToTop } from '@/components/ui/scroll-to-top';
 import { CaseStudyModal } from '@/components/projects/case-study-modal';
 import { getCaseStudyById } from '@/data/case-studies';
 import { useSound } from '@/hooks/use-sound';
@@ -77,6 +80,9 @@ export default function HomePage() {
   return (
     <SmoothScroll>
       <div className="min-h-screen bg-cyber-dark text-foreground selection:bg-cyber-accent/30 selection:text-white relative overflow-x-hidden transition-colors duration-300">
+        {/* Custom Interactive Laser Trailing Cursor */}
+        <CustomCursor />
+
         {/* Ambient background glow & atmospheric cyber grid */}
         <div className="fixed inset-0 pointer-events-none z-0 bg-cyber-gradient opacity-60 dark:opacity-60" aria-hidden="true" />
         <div className="fixed inset-0 pointer-events-none z-0 bg-grid-pattern opacity-10 dark:opacity-10" aria-hidden="true" />
@@ -109,7 +115,7 @@ export default function HomePage() {
               fill
               priority
               sizes="100vw"
-              className="object-cover opacity-15 mix-blend-screen scale-105 filter blur-[0.5px]"
+              className="object-cover opacity-15 mix-blend-screen"
             />
             {/* Directional Vignette Gradient Masks */}
             <div className="absolute inset-0 bg-gradient-to-b from-cyber-dark/40 via-transparent to-cyber-dark/95 pointer-events-none" />
@@ -117,7 +123,7 @@ export default function HomePage() {
             <div className="absolute inset-0 bg-cyber-radial opacity-35" />
           </div>
 
-          {/* Foreground Hero Content Container with comfortable tight spacing right below fixed header */}
+          {/* Foreground Hero Content Container */}
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col justify-start py-2 sm:py-3">
             <HeroSection
               onLaunchTerminal={() => {
@@ -211,16 +217,21 @@ export default function HomePage() {
           </section>
 
           {/* ================================================================== */}
-          {/* 5. CAREER & TECHNICAL MASTERY: TIMELINE, SKILLS, EDUCATION         */}
+          {/* 5. TECHNICAL PUBLICATIONS & SEO BLOGS SECTION                      */}
+          {/* ================================================================== */}
+          <BlogsSection />
+
+          {/* ================================================================== */}
+          {/* 6. CAREER & TECHNICAL MASTERY: TIMELINE, SKILLS, EDUCATION         */}
           {/* ================================================================== */}
           <div className="space-y-24 sm:space-y-32">
-            {/* 5A. Experience Timeline (Imaging IQ & ITH Technologies) */}
+            {/* 6A. Experience Timeline (Imaging IQ & ITH Technologies) */}
             <ExperienceSection />
 
-            {/* 5B. Skills Taxonomy Matrix with Multi-Domain Filter Tabs */}
+            {/* 6B. Skills Taxonomy Matrix with Multi-Domain Filter Tabs */}
             <SkillsMatrix />
 
-            {/* 5C. Education Card (UPES GPA 8.9 & 2023 Technical Honors) */}
+            {/* 6C. Education Card (UPES GPA 8.9 & 2023 Technical Honors) */}
             <section id="resume" className="space-y-6">
               <EducationCard />
             </section>
@@ -228,13 +239,16 @@ export default function HomePage() {
         </main>
 
         {/* ================================================================== */}
-        {/* 6. CYBER-EXECUTIVE FOOTER & DIRECT CONTACT COORDINATES             */}
+        {/* 7. CYBER-EXECUTIVE FOOTER & DIRECT CONTACT COORDINATES             */}
         {/* ================================================================== */}
         <div id="contact" className="relative z-10 w-full grid grid-cols-1">
           <ExecutiveFooter
             onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
           />
         </div>
+
+        {/* Floating Scroll-to-Top Button with Dynamic Circular Progress Border */}
+        <ScrollToTop />
 
         {/* Global Command Palette Dialog (Cmd/Ctrl+K) */}
         <CommandPalette

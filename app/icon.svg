@@ -1,45 +1,40 @@
 <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="yjFavGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="yjIconBorder" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#7c8cff" />
       <stop offset="50%" stop-color="#8cd8ff" />
       <stop offset="100%" stop-color="#78e6bc" />
     </linearGradient>
-    <linearGradient id="yjFavGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+    <linearGradient id="yjIconGradY" x1="25%" y1="25%" x2="50%" y2="55%">
       <stop offset="0%" stop-color="#b8a8ff" />
       <stop offset="100%" stop-color="#7c8cff" />
     </linearGradient>
-    <linearGradient id="yjFavBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0f172a" />
-      <stop offset="100%" stop-color="#070b12" />
+    <linearGradient id="yjIconGradJ" x1="75%" y1="25%" x2="20%" y2="85%">
+      <stop offset="0%" stop-color="#8cd8ff" />
+      <stop offset="50%" stop-color="#7c8cff" />
+      <stop offset="100%" stop-color="#78e6bc" />
+    </linearGradient>
+    <linearGradient id="yjIconBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1220" />
+      <stop offset="100%" stop-color="#05080f" />
     </linearGradient>
   </defs>
 
-  <!-- Hexagonal Shield -->
-  <polygon
-    points="50,4 92,26 92,74 50,96 8,74 8,26"
-    fill="url(#yjFavBg)"
-    stroke="url(#yjFavGrad)"
-    stroke-width="5"
-    stroke-linejoin="round"
-  />
+  <!-- Modern Rounded Squircle Frame -->
+  <rect x="5" y="5" width="90" height="90" rx="22" fill="url(#yjIconBg)" stroke="url(#yjIconBorder)" stroke-width="3" />
 
-  <!-- Inner Subtle Accent -->
-  <polygon
-    points="50,12 84,30 84,70 50,88 16,70 16,30"
-    fill="none"
-    stroke="rgba(140, 216, 255, 0.25)"
-    stroke-width="2"
-  />
+  <!-- Cyber Tech Brackets -->
+  <path d="M15 28 V15 H28" stroke="#8cd8ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" />
+  <path d="M85 72 V85 H72" stroke="#78e6bc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" />
 
-  <!-- "Y" Monogram -->
-  <path d="M26 27 L44 48 L44 56 L34 56 L20 38 Z" fill="url(#yjFavGrad)" />
-  <path d="M74 27 L56 48 L56 56 L66 56 L80 38 Z" fill="url(#yjFavGrad2)" />
-  <path d="M45 49 L55 49 L55 64 L45 64 Z" fill="url(#yjFavGrad)" />
+  <!-- Y-Wing (Left) -->
+  <path d="M26 27 L47 52" stroke="url(#yjIconGradY)" stroke-width="9" stroke-linecap="round" />
 
-  <!-- "J" Monogram -->
-  <path d="M57 40 L69 40 L69 66 C69 76 60 83 48 83 C38 83 31 77 29 70 L38 68 C39 72 43 75 48 75 C54 75 58 72 58 65 Z" fill="url(#yjFavGrad)" />
+  <!-- Interlocking Y-Right-Wing + J Stem & Hook -->
+  <path d="M74 27 L53 52 V68 C53 76.5 46 83 36 83 C27 83 21 77 20 70" stroke="url(#yjIconGradJ)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" />
 
-  <!-- Quantum Core -->
-  <circle cx="50" cy="50" r="4.5" fill="#78e6bc" />
+  <!-- Quantum Core Pulse Accent Nodes -->
+  <circle cx="26" cy="27" r="3.2" fill="#b8a8ff" />
+  <circle cx="74" cy="27" r="3.2" fill="#8cd8ff" />
+  <circle cx="20" cy="70" r="3.2" fill="#78e6bc" />
 </svg>

@@ -16,7 +16,7 @@ export function ProjectGrid({ initialProjectId = null }: ProjectGridProps) {
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(initialProjectId);
   const [filterCategory, setFilterCategory] = useState<string>('All');
 
-  const categories = ['All', 'Healthcare AI', 'Web3 / Fintech', 'Talent Tech'];
+  const categories = ['All', 'Healthcare AI', 'Web3 / Fintech', 'AI Platform', 'Talent Tech'];
 
   const filteredProjects =
     filterCategory === 'All'

@@ -14,82 +14,94 @@ export function Logo({ className, size = 32, showText = false }: LogoProps) {
     <div className={cn('inline-flex items-center gap-2.5 select-none group', className)}>
       <div
         style={{ width: size, height: size }}
-        className="relative shrink-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-105"
+        className="relative shrink-0 flex items-center justify-center transition-transform duration-200 group-hover:scale-105"
       >
-        {/* Ambient Glow */}
+        {/* Subtle Ambient Glow */}
         <div
-          className="absolute inset-0 rounded-xl bg-gradient-to-tr from-cyber-accent via-cyber-cyan to-cyber-green opacity-40 blur-md group-hover:opacity-75 transition-opacity duration-300 pointer-events-none"
+          className="absolute inset-0 rounded-xl bg-gradient-to-tr from-cyber-accent/30 via-cyber-cyan/20 to-cyber-green/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
           aria-hidden="true"
         />
 
-        {/* Bespoke Geometric YJ Cyber Shield SVG */}
+        {/* Bespoke Geometric YJ Vector Monogram SVG */}
         <svg
           viewBox="0 0 100 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="relative w-full h-full drop-shadow-md"
+          className="relative w-full h-full drop-shadow-sm transition-transform duration-200"
         >
           <defs>
-            <linearGradient id="yjGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <linearGradient id="yjLogoBorder" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#7c8cff" />
               <stop offset="50%" stopColor="#8cd8ff" />
               <stop offset="100%" stopColor="#78e6bc" />
             </linearGradient>
-            <linearGradient id="yjGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+            <linearGradient id="yjLogoGradY" x1="25%" y1="25%" x2="50%" y2="55%">
               <stop offset="0%" stopColor="#b8a8ff" />
               <stop offset="100%" stopColor="#7c8cff" />
             </linearGradient>
-            <linearGradient id="yjBg" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#0f172a" />
-              <stop offset="100%" stopColor="#070b12" />
+            <linearGradient id="yjLogoGradJ" x1="75%" y1="25%" x2="20%" y2="85%">
+              <stop offset="0%" stopColor="#8cd8ff" />
+              <stop offset="50%" stopColor="#7c8cff" />
+              <stop offset="100%" stopColor="#78e6bc" />
             </linearGradient>
-            <filter id="yjGlow" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="3" result="blur" />
-              <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
+            <linearGradient id="yjLogoBg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#0d1527" />
+              <stop offset="100%" stopColor="#05080f" />
+            </linearGradient>
           </defs>
 
-          {/* Hexagonal Cyber Container */}
-          <polygon
-            points="50,4 92,26 92,74 50,96 8,74 8,26"
-            fill="url(#yjBg)"
-            stroke="url(#yjGrad1)"
-            strokeWidth="3.5"
+          {/* Modern Rounded Squircle Frame */}
+          <rect
+            x="5"
+            y="5"
+            width="90"
+            height="90"
+            rx="22"
+            fill="url(#yjLogoBg)"
+            stroke="url(#yjLogoBorder)"
+            strokeWidth="3"
+            className="transition-all duration-300 group-hover:stroke-[3.5]"
+          />
+
+          {/* Cyber Tech Brackets */}
+          <path
+            d="M15 28 V15 H28"
+            stroke="#8cd8ff"
+            strokeWidth="1.8"
+            strokeLinecap="round"
             strokeLinejoin="round"
-            className="transition-all duration-300 group-hover:stroke-[4]"
-          />
-
-          {/* Inner Accent Ring */}
-          <polygon
-            points="50,11 85,29 85,71 50,89 15,71 15,29"
-            fill="none"
-            stroke="rgba(140, 216, 255, 0.15)"
-            strokeWidth="1.5"
-            strokeDasharray="4 2"
-          />
-
-          {/* Stylized Monogram "Y" (Top arms and stem) */}
-          <path
-            d="M26 27 L44 48 L44 56 L34 56 L20 38 Z"
-            fill="url(#yjGrad1)"
+            opacity="0.5"
           />
           <path
-            d="M74 27 L56 48 L56 56 L66 56 L80 38 Z"
-            fill="url(#yjGrad2)"
-          />
-          <path
-            d="M45 49 L55 49 L55 64 L45 64 Z"
-            fill="url(#yjGrad1)"
-          />
-
-          {/* Stylized Monogram "J" (Flowing curve anchored from center to right hook) */}
-          <path
-            d="M57 40 L69 40 L69 66 C69 76 60 83 48 83 C38 83 31 77 29 70 L38 68 C39 72 43 75 48 75 C54 75 58 72 58 65 Z"
-            fill="url(#yjGrad1)"
+            d="M85 72 V85 H72"
+            stroke="#78e6bc"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            opacity="0.5"
           />
 
-          {/* Cyber Core Quantum Dot / Terminal Accent */}
-          <circle cx="50" cy="50" r="3" fill="#78e6bc" filter="url(#yjGlow)" />
+          {/* Y-Wing (Left) */}
+          <path
+            d="M26 27 L47 52"
+            stroke="url(#yjLogoGradY)"
+            strokeWidth="9"
+            strokeLinecap="round"
+          />
+
+          {/* Interlocking Y-Right-Wing + J Stem & Hook */}
+          <path
+            d="M74 27 L53 52 V68 C53 76.5 46 83 36 83 C27 83 21 77 20 70"
+            stroke="url(#yjLogoGradJ)"
+            strokeWidth="9"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+
+          {/* Quantum Core Pulse Accent Nodes */}
+          <circle cx="26" cy="27" r="3.2" fill="#b8a8ff" />
+          <circle cx="74" cy="27" r="3.2" fill="#8cd8ff" />
+          <circle cx="20" cy="70" r="3.2" fill="#78e6bc" />
         </svg>
       </div>
 
@@ -99,7 +111,7 @@ export function Logo({ className, size = 32, showText = false }: LogoProps) {
             YASH JANGID
           </span>
           <span className="text-[10px] font-mono text-cyber-muted tracking-widest uppercase">
-            AI Platform Engineer
+            Senior Full Stack & AI Platform Engineer
           </span>
         </div>
       )}

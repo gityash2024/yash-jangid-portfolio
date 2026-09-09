@@ -46,6 +46,9 @@ const DEFAULT_IMAGES: Record<string, string> = {
   'crypto-launchpad': '/images/crypto-launchpad.jpg',
   'recruin-platform': '/images/recruin-platform.jpg',
   'recruin': '/images/recruin-platform.jpg',
+  'softlogic': '/images/softlogic-studio.jpg',
+  'mirsat': '/images/mirsat-satellite.jpg',
+  'sacred-groves': '/images/sacred-groves.jpg',
 };
 
 export function ProjectCard(props: ProjectCardProps) {
@@ -123,13 +126,15 @@ export function ProjectCard(props: ProjectCardProps) {
         onMouseLeave={handleMouseLeave}
         style={{
           transform: isHovered
-            ? `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.015, 1.015, 1.015)`
-            : 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
+            ? `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(8px)`
+            : 'rotateX(0deg) rotateY(0deg) translateZ(0px)',
           transformStyle: 'preserve-3d',
           transition: isHovered ? 'transform 0.1s ease-out' : 'transform 0.5s ease-out',
+          backfaceVisibility: 'hidden',
+          WebkitBackfaceVisibility: 'hidden',
         }}
         className={cn(
-          'relative h-full flex flex-col justify-between glass-card rounded-2xl border border-cyber-border hover:border-cyber-accent/40 shadow-glass-card hover:shadow-glass-card-hover transition-colors duration-300 group overflow-hidden bg-cyber-card/95 backdrop-blur-xl',
+          'relative h-full flex flex-col justify-between glass-card rounded-2xl border border-cyber-border hover:border-cyber-accent/40 shadow-glass-card hover:shadow-glass-card-hover transition-colors duration-300 group overflow-hidden bg-cyber-card/95 backdrop-blur-xl [transform:translateZ(0)] [-webkit-font-smoothing:antialiased]',
           isFeatured ? 'p-6 sm:p-8' : 'p-5 sm:p-6'
         )}
       >

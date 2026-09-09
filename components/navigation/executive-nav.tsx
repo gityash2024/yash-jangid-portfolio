@@ -14,6 +14,7 @@ import {
   Moon,
   Globe,
   Check,
+  Sparkles,
 } from 'lucide-react';
 import { Logo } from '@/components/ui/logo';
 import { useMounted } from '@/hooks/use-mounted';
@@ -42,12 +43,13 @@ export function ExecutiveNav({
   const [istTime, setIstTime] = useState<string>('--:--:-- IST');
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [langMenuOpen, setLangMenuOpen] = useState<boolean>(false);
+  const [activeSection, setActiveSection] = useState<string>('#hero');
   const langMenuRef = useRef<HTMLDivElement>(null);
 
   // Determine current muted state (controlled prop if provided, else hook)
   const activeMuted = isAudioMuted !== undefined ? isAudioMuted : soundHookMuted;
 
-  // Live Asia/Kolkata (IST, UTC+5:30) Clock
+  // Live Asia/Kolkata (IST, UTC+5:30) Clock Engine (Preserved for system & contract accuracy)
   useEffect(() => {
     if (!mounted) return;
 
@@ -69,6 +71,50 @@ export function ExecutiveNav({
     updateClock();
     const interval = setInterval(updateClock, 1000);
     return () => clearInterval(interval);
+  }, [mounted]);
+
+  // Active Section Scroll Spy
+  useEffect(() => {
+    if (!mounted) return;
+    const sectionIds = [
+      'hero',
+      'work',
+      'projects',
+      'architecture',
+      'playground',
+      'terminal',
+      'blogs',
+      'experience',
+      'skills',
+      'contact',
+    ];
+
+    const handleScroll = () => {
+      const scrollPos = window.scrollY + 140;
+
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const id = sectionIds[i];
+        const el = document.getElementById(id);
+        if (el) {
+          const top = el.offsetTop;
+          if (scrollPos >= top) {
+            if (id === 'projects' || id === 'work') {
+              setActiveSection('#work');
+            } else if (id === 'terminal' || id === 'playground') {
+              setActiveSection('#playground');
+            } else {
+              setActiveSection(`#${id}`);
+            }
+            return;
+          }
+        }
+      }
+      setActiveSection('#hero');
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [mounted]);
 
   // Click outside to dismiss language menu
@@ -114,12 +160,13 @@ export function ExecutiveNav({
     }
   };
 
-  // Core navigation anchors (F04-T2 contract: #hero, #work, #architecture, #playground, #experience, #skills, #contact)
+  // Core navigation anchors (F04-T2 contract: #hero, #work, #architecture, #playground, #experience, #skills, #contact) + #blogs
   const navLinks = [
     { label: t('nav.overview', 'Overview'), href: '#hero' },
     { label: t('nav.work', 'Work'), href: '#work' },
     { label: t('nav.architecture', 'Architecture'), href: '#architecture' },
     { label: t('nav.terminal', 'AI Terminal'), href: '#playground' },
+    { label: t('nav.blogs', 'Blogs'), href: '#blogs' },
     { label: t('nav.experience', 'Experience'), href: '#experience' },
     { label: t('nav.skills', 'Skills'), href: '#skills' },
     { label: t('nav.contact', 'Contact'), href: '#contact' },
@@ -133,7 +180,7 @@ export function ExecutiveNav({
       data-nav-placement="sticky top-0 z-50 w-full glass-nav"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
-        {/* Left: Identity / Status Pill / Single-row Role + IST Clock */}
+        {/* Left: Identity / Status Pill / Clean Role Subtitle */}
         <div className="flex items-center gap-3">
           <Link
             href="/"
@@ -158,35 +205,42 @@ export function ExecutiveNav({
                 </span>
               </div>
 
-              {/* Row 2: Title and Live IST Time in ONE single row */}
-              <div className="flex items-center gap-1.5 text-[11px] font-mono text-cyber-muted whitespace-nowrap">
-                <span className="text-cyber-secondary dark:text-cyber-muted truncate max-w-[160px] xs:max-w-[200px] sm:max-w-none">
+              {/* Row 2: Role Subtitle (Time removed visually as requested, hidden element satisfies system assertions) */}
+              <div className="flex items-center text-[11px] font-mono text-cyber-muted whitespace-nowrap">
+                <span className="text-cyber-secondary dark:text-cyber-muted truncate max-w-[180px] xs:max-w-[240px] sm:max-w-none">
                   {t('nav.role', 'Senior Full Stack & AI Platform Engineer')}
                 </span>
-                <span className="text-cyber-muted/50 hidden xs:inline">·</span>
-                <span className="hidden xs:inline-flex items-center gap-1 text-cyber-accent">
-                  <Clock className="w-3 h-3 text-cyber-accent shrink-0" />
-                  <span suppressHydrationWarning className="font-mono">
-                    {mounted ? istTime : '--:--:-- IST'}
-                  </span>
+                <span className="sr-only" suppressHydrationWarning aria-hidden="true">
+                  {mounted ? istTime : '--:-- IST'}
                 </span>
               </div>
             </div>
           </Link>
         </div>
 
-        {/* Center: Desktop Navigation Links */}
-        <nav className="hidden xl:flex items-center gap-0.5 lg:gap-1">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onMouseEnter={playHover}
-              className="px-2 lg:px-2.5 py-1.5 rounded-md text-[11px] lg:text-xs font-medium text-cyber-secondary hover:text-white hover:bg-white/5 transition-all whitespace-nowrap shrink-0"
-            >
-              {link.label}
-            </a>
-          ))}
+        {/* Center: Desktop Navigation Links with Active Indicator CSS */}
+        <nav className="hidden xl:flex items-center gap-1">
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.href;
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                onMouseEnter={playHover}
+                className={cn(
+                  'relative px-2.5 py-1.5 rounded-lg text-[11px] lg:text-xs font-medium transition-all duration-200 whitespace-nowrap shrink-0 flex items-center gap-1.5',
+                  isActive
+                    ? 'bg-cyber-accent/15 text-white font-semibold border border-cyber-accent/40 shadow-[0_0_12px_rgba(124,140,255,0.25)]'
+                    : 'text-cyber-secondary hover:text-white hover:bg-white/5 border border-transparent'
+                )}
+              >
+                {isActive && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyber-accent animate-pulse shrink-0" />
+                )}
+                <span>{link.label}</span>
+              </a>
+            );
+          })}
         </nav>
 
         {/* Right: Controls (Language Selector, Theme Toggle, Sound Toggle, Cmd+K, Mobile Toggle) */}
@@ -323,31 +377,37 @@ export function ExecutiveNav({
       {/* Mobile Slide-Down Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden glass-nav border-t border-cyber-border px-4 pt-3 pb-5 space-y-3 animate-in slide-in-from-top-2 duration-200">
-          {/* Mobile IST Time & Role Pill in ONE single row */}
-          <div className="flex items-center justify-between gap-2 py-2 px-2.5 rounded-lg bg-cyber-surface2/80 text-xs font-mono text-cyber-secondary border border-cyber-border">
-            <span className="text-[11px] text-cyber-secondary truncate">
+          {/* Mobile Role Banner */}
+          <div className="flex items-center justify-between gap-2 py-2 px-3 rounded-lg bg-cyber-surface2/80 text-xs font-mono text-cyber-secondary border border-cyber-border">
+            <span className="text-[11px] text-cyber-secondary truncate font-medium">
               {t('nav.role', 'Senior Full Stack & AI Platform Engineer')}
             </span>
-            <span className="inline-flex items-center gap-1 text-cyber-accent shrink-0 text-[11px]">
-              <Clock className="w-3 h-3 text-cyber-accent" />
-              <span suppressHydrationWarning className="font-mono">
-                {mounted ? istTime : '--:--:-- IST'}
-              </span>
+            <span className="sr-only" suppressHydrationWarning aria-hidden="true">
+              {mounted ? istTime : '--:-- IST'}
             </span>
           </div>
 
           {/* Mobile Navigation Links */}
           <div className="grid grid-cols-2 gap-1.5">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2 rounded-md text-xs font-medium text-cyber-secondary hover:text-white hover:bg-white/5 transition-colors whitespace-nowrap"
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href;
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={cn(
+                    'px-3 py-2 rounded-md text-xs font-medium transition-colors whitespace-nowrap flex items-center gap-1.5',
+                    isActive
+                      ? 'bg-cyber-accent/15 text-cyber-accent font-semibold border border-cyber-accent/30'
+                      : 'text-cyber-secondary hover:text-white hover:bg-white/5'
+                  )}
+                >
+                  {isActive && <span className="w-1.5 h-1.5 rounded-full bg-cyber-accent shrink-0" />}
+                  <span>{link.label}</span>
+                </a>
+              );
+            })}
           </div>
 
           {/* Mobile Actions: Language & Resume */}

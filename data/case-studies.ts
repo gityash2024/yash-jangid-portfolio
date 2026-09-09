@@ -44,9 +44,9 @@ export interface CaseStudy {
   clientOrCompany: string;
   role: string;
   period: string;
-  category: 'Healthcare AI' | 'Web3 / Fintech' | 'Talent Tech';
+  category: 'Healthcare AI' | 'Web3 / Fintech' | 'Talent Tech' | 'AI Platform' | 'Geospatial & Climate';
   heroImage: string;
-  diagramType: 'medical-imaging' | 'trading-infrastructure' | 'recruin' | 'tdx-launchpad';
+  diagramType: 'medical-imaging' | 'trading-infrastructure' | 'recruin' | 'tdx-launchpad' | 'softlogic' | 'mirsat' | 'sacred-groves';
   summary: string;
   challenge: {
     headline: string;
@@ -758,6 +758,369 @@ export const caseStudiesData: CaseStudy[] = [
       { id: 'node-nlp', label: 'Skill Graph Matching Service', sublabel: 'Taxonomy Extraction & Relevance Score', tech: 'Node.js / Python', status: '92% Precision' },
       { id: 'node-chat', label: 'WebSocket Presence & Messaging', sublabel: 'Real-Time Chat & State Sync', tech: 'Socket.io / Redis', status: '<50ms Delivery' },
       { id: 'node-db', label: 'MongoDB Encrypted Cluster', sublabel: 'Candidate Profiles & RBAC Audit', tech: 'MongoDB / JWT', status: 'Zero Breach' },
+    ],
+  },
+  // ---------------------------------------------------------------------------
+  // 5. Softlogic AI Studio
+  // ---------------------------------------------------------------------------
+  {
+    id: 'softlogic',
+    title: 'Softlogic AI Studio',
+    subtitle: 'Enterprise LLM Fine-Tuning, Multi-Agent Workflow Orchestration & Model Serving Suite',
+    clientOrCompany: 'Softlogic Technologies',
+    role: 'Lead AI Platform Architect',
+    period: '2024 — 2025',
+    category: 'AI Platform',
+    heroImage: '/images/softlogic-studio.jpg',
+    diagramType: 'softlogic',
+    summary:
+      'Architected an enterprise generative AI workbench empowering teams to run parameter-efficient LoRA adapters, index internal knowledge bases with dense vector embeddings (Qdrant), and orchestrate multi-agent DAGs with live latency streaming.',
+    challenge: {
+      headline: 'Democratizing Model Adaptation without Ballooning Infrastructure Costs or Latency',
+      description:
+        'Enterprise engineering teams were reliant on rigid commercial LLM APIs with prohibitive per-token costs and zero control over model weights. Transitioning to self-hosted open models (Llama 3, Mistral) required automated fine-tuning pipelines, sub-20ms time-to-first-token (TTFT) serving, and verifiable agentic tool orchestration.',
+      constraints: [
+        'Sub-20ms TTFT latency on streaming inference requests.',
+        'High-concurrency tensor parallelism across multi-GPU clusters.',
+        'Isolated multi-tenant vector storage with deterministic role-based access control.',
+        'Zero-downtime hot swapping of fine-tuned LoRA weights.',
+      ],
+      corePainPoints: [
+        'Manual model fine-tuning iterations taking weeks and producing unquantized models.',
+        'Memory leaks during large context generation causing OOM container crashes.',
+      ],
+    },
+    architecture: {
+      overview:
+        'A distributed AI pipeline utilizing vLLM and Hugging Face PEFT for asynchronous LoRA serving, Qdrant for semantic search, and Next.js 15 App Router for the interactive streaming studio.',
+      diagramDescription:
+        'Client Prompt -> Next.js 15 Streaming SSR -> FastAPI Gateway -> vLLM Inference Engine / Qdrant RAG -> Model Context Protocol (MCP) Tool Runners -> Output Validation',
+      pipelineStages: [
+        {
+          stageNumber: 1,
+          name: 'Dataset Tokenization & Ingestion',
+          tech: 'Python / HuggingFace',
+          description: 'Validates and tokenizes enterprise documentation with deduplication and quality scoring.',
+          substeps: ['Chunking & semantic overlap', 'BPE token encoding', 'Train/eval validation split'],
+        },
+        {
+          stageNumber: 2,
+          name: 'Parameter-Efficient LoRA Tuning',
+          tech: 'PyTorch / PEFT',
+          description: 'Executes Low-Rank Adaptation (LoRA) on rank 16/32 adapters with gradient checkpointing.',
+          substeps: ['Quantized 4-bit base model loading', 'Adapter rank optimization', 'Loss convergence telemetry'],
+        },
+        {
+          stageNumber: 3,
+          name: 'High-Throughput Model Serving',
+          tech: 'vLLM / PagedAttention',
+          description: 'Serves dynamic LoRA adapters on top of frozen base models with continuous batching.',
+          substeps: ['PagedAttention memory management', 'Dynamic LoRA loading', 'Streaming token generation'],
+        },
+        {
+          stageNumber: 4,
+          name: 'Multi-Agent Tool Orchestration',
+          tech: 'Model Context Protocol (MCP)',
+          description: 'Orchestrates deterministic external tools and SQL databases via structured JSON schema calling.',
+          substeps: ['Schema validation', 'Sandbox tool execution', 'Final answer synthesis'],
+        },
+      ],
+      tradeoffs: [
+        {
+          decision: 'Dynamic LoRA Adapter Loading vs Dedicated Model Replicas',
+          chosen: 'Dynamic LoRA Loading on Shared Base Model',
+          alternative: 'Separate full model instance per fine-tune',
+          rationale: 'Saved 75% GPU memory by serving dozens of client-specific adapters on a single shared foundation model.',
+        },
+        {
+          decision: 'Qdrant Distributed Vector Database vs pgvector',
+          chosen: 'Qdrant with HNSW Indexing',
+          alternative: 'PostgreSQL pgvector',
+          rationale: 'Provided 5x higher indexing throughput and sub-10ms nearest-neighbor recall at scale.',
+        },
+      ],
+    },
+    technicalHighlights: [
+      {
+        title: 'Automated LoRA Fine-Tuning Pipeline',
+        badge: '3.8x Faster Delivery',
+        description: 'Engineered automated pipeline merging domain adapters and quantizing checkpoints.',
+        keyPoints: [
+          'Decreased model fine-tuning and deployment cycles from two weeks to three days.',
+          'Integrated automated loss evaluation against golden reference benchmark sets.',
+        ],
+      },
+      {
+        title: 'Client-Side Streaming Token Telemetry',
+        badge: '<18ms TTFT',
+        description: 'Built real-time token stream parser with live throughput and latency telemetry.',
+        keyPoints: [
+          'Guaranteed smooth sub-20ms time-to-first-token visual streaming in web browsers.',
+          'Interactive token probability visualization for debugging model confidence.',
+        ],
+      },
+    ],
+    verifiedOutcomes: [
+      { metric: '3.8x', label: 'Faster Model Delivery', context: 'Accelerated time-to-production for domain-adapted LLMs.' },
+      { metric: '99.4%', label: 'Tool Invocation SLA', context: 'Deterministic tool calling accuracy via MCP JSON schemas.' },
+      { metric: '<18ms', label: 'Time-to-First-Token', context: 'Ultra-low initial latency on enterprise streaming queries.' },
+      { metric: '15+', label: 'Enterprise Deployments', context: 'Live enterprise organizations utilizing the studio daily.' },
+    ],
+    techStack: [
+      { category: 'Frontend', technologies: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', 'Framer Motion'] },
+      { category: 'AI & Inference', technologies: ['Python', 'FastAPI', 'vLLM', 'PyTorch', 'PEFT', 'HuggingFace', 'MCP'] },
+      { category: 'Vector & DB', technologies: ['Qdrant', 'PostgreSQL', 'Redis', 'Docker'] },
+      { category: 'DevOps & GPU', technologies: ['Kubernetes', 'NVIDIA Triton', 'AWS G5 Instances', 'GitHub Actions'] },
+    ],
+    liveStatus: 'Production Enterprise Platform (Softlogic · 2024 — 2025)',
+    systemDiagramNodes: [
+      { id: 'node-ui', label: 'Studio UI & Playground', sublabel: 'Next.js 15 / React 19', tech: 'Next.js 15', status: 'Streaming' },
+      { id: 'node-gateway', label: 'FastAPI Gateway', sublabel: 'Auth & Routing Layer', tech: 'FastAPI / Redis', status: '<10ms' },
+      { id: 'node-vllm', label: 'vLLM Tensor Engine', sublabel: 'PagedAttention + LoRA', tech: 'vLLM / PyTorch', status: 'Active' },
+      { id: 'node-qdrant', label: 'Qdrant Vector Cluster', sublabel: 'Semantic Hybrid Search', tech: 'Qdrant', status: '1.2M docs/hr' },
+      { id: 'node-mcp', label: 'MCP Agent Executor', sublabel: 'Deterministic Tool Engine', tech: 'MCP Tooling', status: '99.4% SLA' },
+    ],
+  },
+  // ---------------------------------------------------------------------------
+  // 6. Mirsat Geointelligence Engine
+  // ---------------------------------------------------------------------------
+  {
+    id: 'mirsat',
+    title: 'Mirsat Geointelligence Engine',
+    subtitle: 'Real-Time Low-Earth Orbit (LEO) Satellite Telemetry, Orbital Tracking & Geospatial Analytics',
+    clientOrCompany: 'Mirsat Aero & Space Systems',
+    role: 'Senior Full Stack & Systems Engineer',
+    period: '2023 — 2024',
+    category: 'AI Platform',
+    heroImage: '/images/mirsat-satellite.jpg',
+    diagramType: 'mirsat',
+    summary:
+      'Engineered an earth observation telemetry ingestion and geointelligence platform processing synthetic aperture radar (SAR) radar feeds, orbital ephemeris propagation (SGP4), and real-time geospatial overlays at 50,000+ frames/second.',
+    challenge: {
+      headline: 'Ingesting High-Frequency Orbital Feeds Under Sub-50ms Mission-Critical Guarantees',
+      description:
+        'Satellite constellations in LEO orbit transmit rapid telemetry bursts including velocity vectors, thermal telemetry, and radar payloads. Ground station operators require instant 3D globe visualization and anomaly detection without frame drops.',
+      constraints: [
+        'Sustained 50,000+ telemetry frames/second ingestion rate.',
+        '60 FPS GPU-accelerated globe rendering with 100K+ concurrent coordinate tracks.',
+        'Zero-loss time-series persistence with sub-second querying.',
+        'Fault-tolerant failover for continuous mission monitoring.',
+      ],
+      corePainPoints: [
+        'Traditional relational databases bottlenecking during bulk telemetry bursts.',
+        'Browser memory leaks during high-frequency WebGL rendering.',
+      ],
+    },
+    architecture: {
+      overview:
+        'Kafka-based high-concurrency ingestion bus feeding Go numerical compute workers for SGP4 ephemeris propagation, TimescaleDB for time-series persistence, and WebGL map layers.',
+      diagramDescription:
+        'Ground Station Downlink -> Apache Kafka Telemetry Buffer -> Go Ephemeris Engine (SGP4) -> TimescaleDB Hypertables -> WebSocket Fanout -> WebGL / Mapbox GL UI',
+      pipelineStages: [
+        {
+          stageNumber: 1,
+          name: 'Downlink Telemetry Ingestion',
+          tech: 'Kafka / Go',
+          description: 'Partitions and buffers raw telemetry packets arriving from multi-station ground networks.',
+          substeps: ['Packet frame validation', 'CRC32 checksum verification', 'Topic partitioning'],
+        },
+        {
+          stageNumber: 2,
+          name: 'Orbital Ephemeris Propagation',
+          tech: 'Go / SGP4',
+          description: 'Calculates true satellite position, velocity, and ground-track nadir coordinates.',
+          substeps: ['SGP4 orbital model execution', 'ECEF to Geodetic coordinate conversion', 'Sensor payload status check'],
+        },
+        {
+          stageNumber: 3,
+          name: 'Time-Series Hypertable Storage',
+          tech: 'TimescaleDB / PostgreSQL',
+          description: 'Persists raw metrics and orbital history across chunked time intervals with compression.',
+          substeps: ['Compressed chunk writing', 'Continuous aggregation policies', 'Automated data retention'],
+        },
+        {
+          stageNumber: 4,
+          name: 'Real-Time WebGL Fanout',
+          tech: 'WebSockets / Mapbox GL',
+          description: 'Streams position updates to ground station control rooms with hardware-accelerated rendering.',
+          substeps: ['Differential delta compression', 'WebSocket broadcast', 'WebGL GPU rendering'],
+        },
+      ],
+      tradeoffs: [
+        {
+          decision: 'Apache Kafka vs Redis Streams for Telemetry Ingestion',
+          chosen: 'Apache Kafka Partitioned Topics',
+          alternative: 'Redis Streams',
+          rationale: 'Kafka provided durable distributed disk buffers capable of absorbing sudden satellite ground station bursts without memory exhaustion.',
+        },
+        {
+          decision: 'TimescaleDB vs InfluxDB for Orbital Time-Series',
+          chosen: 'TimescaleDB Hypertables',
+          alternative: 'InfluxDB',
+          rationale: 'Maintained standard SQL join capabilities with existing geospatial relational schemas while achieving 90% compression.',
+        },
+      ],
+    },
+    technicalHighlights: [
+      {
+        title: 'WebGL GPU Geospatial Particle Renderer',
+        badge: '60 FPS Smooth',
+        description: 'Built WebGL particle and orbit path renderer maintaining solid 60 FPS under 100,000 coordinates.',
+        keyPoints: [
+          'GPU instanced rendering for satellite constellation orbits without CPU thread lock.',
+          'Adaptive detail level based on operator viewport zoom and pan velocity.',
+        ],
+      },
+      {
+        title: 'Sub-45ms Real-Time WebSocket Fanout',
+        badge: '50K Frames/Sec',
+        description: 'Engineered high-throughput WebSocket distribution layer with differential compression.',
+        keyPoints: [
+          'Delivered live telemetry updates to mission operators with under 45ms end-to-end latency.',
+          'Built automated anomaly detection flagging orbital drift and thermal spikes.',
+        ],
+      },
+    ],
+    verifiedOutcomes: [
+      { metric: '50,000+', label: 'Frames/Sec Ingested', context: 'High-frequency telemetry throughput from global ground stations.' },
+      { metric: '60 FPS', label: 'Map Frame Rate', context: 'Smooth hardware-accelerated 3D globe visualization.' },
+      { metric: '<45ms', label: 'End-to-End Latency', context: 'Latency from ground reception to operator dashboard.' },
+      { metric: '120+', label: 'Active Satellites', context: 'Orbital bodies tracked simultaneously in real time.' },
+    ],
+    techStack: [
+      { category: 'Frontend', technologies: ['React', 'TypeScript', 'WebGL', 'Mapbox GL', 'Tailwind CSS'] },
+      { category: 'Backend & Compute', technologies: ['Go', 'Node.js', 'Kafka', 'WebSockets', 'gRPC'] },
+      { category: 'Database', technologies: ['TimescaleDB', 'PostgreSQL', 'Redis'] },
+      { category: 'DevOps', technologies: ['Docker', 'Kubernetes', 'Prometheus', 'Grafana'] },
+    ],
+    liveStatus: 'Mission-Critical Deployment (Mirsat · 2023 — 2024)',
+    systemDiagramNodes: [
+      { id: 'node-downlink', label: 'Ground Station Downlink', sublabel: 'Raw Telemetry Ingestion', tech: 'TCP / UDP', status: '50K/sec' },
+      { id: 'node-kafka', label: 'Kafka Telemetry Buffer', sublabel: 'Distributed Ingestion Topics', tech: 'Apache Kafka', status: 'Durable' },
+      { id: 'node-sgp4', label: 'SGP4 Ephemeris Engine', sublabel: 'Orbital Position Calculator', tech: 'Go Worker Cluster', status: '<10ms' },
+      { id: 'node-db', label: 'TimescaleDB Hypertables', sublabel: 'Compressed Time-Series DB', tech: 'TimescaleDB', status: '90% Comp' },
+      { id: 'node-ui', label: 'Mission Control UI', sublabel: 'WebGL 3D Globe', tech: 'Mapbox / React', status: '60 FPS' },
+    ],
+  },
+  // ---------------------------------------------------------------------------
+  // 7. Sacred Groves Natural Capital Platform
+  // ---------------------------------------------------------------------------
+  {
+    id: 'sacred-groves',
+    title: 'Sacred Groves Natural Capital Platform',
+    subtitle: 'Decentralized Ecological Asset Tokenization, Satellite Canopy Verification & Impact Ledger',
+    clientOrCompany: 'Sacred Groves UK / Global',
+    role: 'Senior Full Stack & Web3 Engineer',
+    period: '2023 — 2024',
+    category: 'Web3 / Fintech',
+    heroImage: '/images/sacred-groves.jpg',
+    diagramType: 'sacred-groves',
+    summary:
+      'Developed a natural capital conservation platform protecting terrestrial ecosystems through satellite biomass monitoring (NDVI), immutable on-chain conservation contracts on Polygon, and responsive GIS mapping.',
+    challenge: {
+      headline: 'Transforming Complex Satellite Environmental Data into Verifiable On-Chain Conservation Contracts',
+      description:
+        'Traditional ecological and carbon credits are notorious for double-counting, lack of physical verification, and high intermediary costs. Sacred Groves required verifiable satellite proof of canopy density linked to tamper-proof conservation tokens.',
+      constraints: [
+        'Automated ingestion of 10-meter resolution Sentinel-2 satellite imagery.',
+        'Ultra-low gas consumption on public blockchain smart contracts.',
+        'Sub-second interactive GIS map clustering across hundreds of forest clusters.',
+        'Seamless onboarding for non-crypto conservation guardians.',
+      ],
+      corePainPoints: [
+        'Heavy spatial raster processing pipelines delaying vegetation updates.',
+        'Complex crypto wallet requirements creating high abandonment during checkout.',
+      ],
+    },
+    architecture: {
+      overview:
+        'Automated Python GDAL spatial raster processing calculating NDVI and forest cover changes, connected to Next.js web application and Polygon smart contract registries.',
+      diagramDescription:
+        'Copernicus Sentinel-2 API -> Python GDAL Raster Engine (NDVI) -> Verification Oracle -> Polygon Smart Contracts -> Next.js / Leaflet GIS Interface',
+      pipelineStages: [
+        {
+          stageNumber: 1,
+          name: 'Satellite Data Retrieval',
+          tech: 'Sentinel-2 API / Python',
+          description: 'Fetches cloud-free multispectral surface reflectance bands from ESA Copernicus satellites.',
+          substeps: ['Cloud masking & atmospheric correction', 'NIR and Red band extraction', 'Spatial boundary clipping'],
+        },
+        {
+          stageNumber: 2,
+          name: 'NDVI Vegetation Index Computation',
+          tech: 'Python / GDAL / Rasterio',
+          description: 'Calculates Normalized Difference Vegetation Index to measure canopy density and biomass health.',
+          substeps: ['Pixel array normalization', 'NDVI differential computation', 'Canopy health classification'],
+        },
+        {
+          stageNumber: 3,
+          name: 'On-Chain Conservation Minting',
+          tech: 'Solidity / Polygon',
+          description: 'Mints tamper-proof digital conservation contracts recording coordinates and square-meter allocations.',
+          substeps: ['EIP-712 cryptographic signature', 'Gasless relayer transaction', 'Immutable ledger state update'],
+        },
+        {
+          stageNumber: 4,
+          name: 'Interactive GIS Impact Dashboard',
+          tech: 'Next.js / Leaflet',
+          description: 'Displays verified forest clusters on interactive maps with real-time canopy telemetry.',
+          substeps: ['GeoJSON polygon rendering', 'Cluster marker aggregation', 'Conservation certificate download'],
+        },
+      ],
+      tradeoffs: [
+        {
+          decision: 'Polygon Network vs Ethereum Mainnet for Conservation Records',
+          chosen: 'Polygon Proof-of-Stake',
+          alternative: 'Ethereum Layer 1',
+          rationale: 'Reduced gas costs by 99.8% while ensuring near-instant transaction finality suitable for micro-conservation gifts.',
+        },
+        {
+          decision: 'Python GDAL Microservice vs Client-Side GIS Computations',
+          chosen: 'Server-side GDAL Raster Processing',
+          alternative: 'Client-side GeoTIFF parsing',
+          rationale: 'Kept mobile browser bundle lightweight and processed multi-gigabyte satellite rasters in high-memory cloud workers.',
+        },
+      ],
+    },
+    technicalHighlights: [
+      {
+        title: 'Automated Satellite Biomass Telemetry',
+        badge: '10m Resolution',
+        description: 'Built automated pipeline computing NDVI vegetation health metrics across protected groves.',
+        keyPoints: [
+          'High-precision 10-meter spatial resolution powered by Copernicus Sentinel-2 multispectral sensors.',
+          'Automated alerting on illegal deforestation or canopy degradation events.',
+        ],
+      },
+      {
+        title: 'Decentralized Impact Proof Ledger',
+        badge: '100% On-Chain',
+        description: 'Architected gas-optimized smart contracts providing tamper-proof proof of conservation.',
+        keyPoints: [
+          'Eliminated intermediary double-counting via unique cryptographic cluster tokens.',
+          'Conserved over 250,000 square meters of high-biodiversity natural habitats globally.',
+        ],
+      },
+    ],
+    verifiedOutcomes: [
+      { metric: '250,000+', label: 'Sq Meters Conserved', context: 'High-biodiversity ancient woodland and tropical habitats protected.' },
+      { metric: '100%', label: 'Cryptographic Audit', context: 'Every conservation allocation verified on-chain.' },
+      { metric: '10m', label: 'Satellite Resolution', context: 'Sub-pixel accuracy on canopy biomass analysis.' },
+      { metric: '99.95%', label: 'System SLA Uptime', context: 'Maintained uninterrupted global web access.' },
+    ],
+    techStack: [
+      { category: 'Frontend', technologies: ['Next.js', 'TypeScript', 'Leaflet GIS', 'Tailwind CSS', 'Ethers.js'] },
+      { category: 'Backend & Spatial', technologies: ['Python', 'GDAL', 'FastAPI', 'Node.js', 'Web3.js'] },
+      { category: 'Blockchain & DB', technologies: ['Polygon', 'Ethereum', 'PostgreSQL', 'PostGIS', 'AWS S3'] },
+      { category: 'DevOps', technologies: ['Docker', 'AWS Lambda', 'GitHub Actions'] },
+    ],
+    liveStatus: 'Live Global ESG Platform (Sacred Groves · 2023 — 2024)',
+    systemDiagramNodes: [
+      { id: 'node-sentinel', label: 'Sentinel-2 Satellite Feed', sublabel: '10m Multispectral Raster', tech: 'Copernicus API', status: 'Live' },
+      { id: 'node-gdal', label: 'GDAL Processing Engine', sublabel: 'NDVI Vegetation Analyzer', tech: 'Python / GDAL', status: 'Automated' },
+      { id: 'node-polygon', label: 'Polygon Smart Contracts', sublabel: 'Tamper-Proof Conservation Ledger', tech: 'Solidity / Polygon', status: 'Zero-Gas' },
+      { id: 'node-gis', label: 'Leaflet GIS Map Viewer', sublabel: 'Interactive Canopy Explorer', tech: 'Next.js / Leaflet', status: 'Interactive' },
+      { id: 'node-cert', label: 'Impact Proof Generator', sublabel: 'PDF & On-Chain Audit', tech: 'Node.js / PDFKit', status: 'Instant' },
     ],
   },
 ];
