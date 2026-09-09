@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react';
 import Image from 'next/image';
 import { Activity, ArrowUpRight, CheckCircle2, Layers, Sparkles, Zap } from 'lucide-react';
+import { useLanguage } from '@/context/language-context';
 import { cn } from '@/lib/utils';
 
 export interface ProjectCardData {
@@ -48,6 +49,7 @@ const DEFAULT_IMAGES: Record<string, string> = {
 };
 
 export function ProjectCard(props: ProjectCardProps) {
+  const { t } = useLanguage();
   const {
     project,
     onOpenCaseStudy,
@@ -245,7 +247,7 @@ export function ProjectCard(props: ProjectCardProps) {
               >
                 <span className="flex items-center gap-2">
                   <Layers className="w-3.5 h-3.5 text-cyber-accent" />
-                  <span>View Architecture &amp; Case Study</span>
+                  <span>{t('projects.viewCaseStudy', 'View Architecture & Case Study')}</span>
                 </span>
                 <ArrowUpRight className="w-4 h-4 text-cyber-accent group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform duration-200" />
               </button>

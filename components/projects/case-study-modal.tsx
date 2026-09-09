@@ -23,6 +23,7 @@ import {
   Zap,
 } from 'lucide-react';
 import { CaseStudy } from '@/data/case-studies';
+import { useLanguage } from '@/context/language-context';
 import { cn } from '@/lib/utils';
 
 interface CaseStudyModalProps {
@@ -40,6 +41,7 @@ export function CaseStudyModal({
   onNavigate,
   allCaseStudies = [],
 }: CaseStudyModalProps) {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<'overview' | 'architecture' | 'highlights' | 'outcomes'>('overview');
 
   // Handle body scroll locking when modal is open
@@ -125,7 +127,7 @@ export function CaseStudyModal({
                     onClick={() => prevStudy && onNavigate(prevStudy.id)}
                     className="p-1.5 rounded-lg border border-cyber-border text-cyber-secondary hover:text-white hover:border-cyber-accent/40 transition-colors"
                     title={`Previous: ${prevStudy?.title}`}
-                    aria-label="Previous case study"
+                    aria-label={t('modal.previous', 'Previous case study')}
                   >
                     <ArrowLeft className="w-3.5 h-3.5" />
                   </button>
@@ -134,7 +136,7 @@ export function CaseStudyModal({
                     onClick={() => nextStudy && onNavigate(nextStudy.id)}
                     className="p-1.5 rounded-lg border border-cyber-border text-cyber-secondary hover:text-white hover:border-cyber-accent/40 transition-colors"
                     title={`Next: ${nextStudy?.title}`}
-                    aria-label="Next case study"
+                    aria-label={t('modal.next', 'Next case study')}
                   >
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
@@ -145,7 +147,7 @@ export function CaseStudyModal({
               <button
                 type="button"
                 onClick={onClose}
-                aria-label="Close case study modal"
+                aria-label={t('modal.close', 'Close case study modal')}
                 className="p-2 rounded-xl bg-cyber-surface2 border border-cyber-border text-cyber-secondary hover:text-white hover:border-cyber-accent/40 hover:bg-cyber-surface2/80 transition-all group"
               >
                 <X className="w-4 h-4 group-hover:rotate-90 transition-transform duration-200" />
@@ -156,10 +158,10 @@ export function CaseStudyModal({
           {/* Tab Navigation Pill Strip */}
           <div className="flex-none px-6 py-2.5 bg-cyber-surface/60 border-b border-cyber-border/70 overflow-x-auto flex items-center gap-2 scrollbar-none">
             {[
-              { id: 'overview', label: 'Executive Summary & Challenge' },
-              { id: 'architecture', label: 'System Architecture & Flow' },
-              { id: 'highlights', label: 'Engineering Decisions & Highlights' },
-              { id: 'outcomes', label: 'Verified Metrics & Stack' },
+              { id: 'overview', label: t('modal.overview', 'Overview') },
+              { id: 'architecture', label: t('modal.architecture', 'Architecture') },
+              { id: 'highlights', label: t('modal.highlights', 'Key Highlights') },
+              { id: 'outcomes', label: t('modal.outcomes', 'Verified Impact') },
             ].map((tab) => (
               <button
                 key={tab.id}

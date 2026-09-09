@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { caseStudiesData, getCaseStudyById } from '@/data/case-studies';
 import { ProjectCard } from './project-card';
 import { CaseStudyModal } from './case-study-modal';
+import { useLanguage } from '@/context/language-context';
 import { cn } from '@/lib/utils';
 
 interface ProjectGridProps {
@@ -11,6 +12,7 @@ interface ProjectGridProps {
 }
 
 export function ProjectGrid({ initialProjectId = null }: ProjectGridProps) {
+  const { t } = useLanguage();
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(initialProjectId);
   const [filterCategory, setFilterCategory] = useState<string>('All');
 
@@ -43,14 +45,14 @@ export function ProjectGrid({ initialProjectId = null }: ProjectGridProps) {
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-cyber-accent animate-pulse" />
             <span className="text-xs font-mono uppercase tracking-widest text-cyber-accent">
-              Architectural Case Studies
+              {t('projects.badge', 'Architectural Case Studies')}
             </span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Flagship Engineering Deployments
+            {t('projects.title', 'Flagship Engineering Deployments')}
           </h2>
           <p className="text-sm text-cyber-secondary max-w-xl">
-            Production systems delivered across Healthcare AI, High-Frequency Trading, and Web3 Infrastructure. Click any deployment to inspect architectural blueprints, tradeoffs, and verified metrics.
+            {t('projects.description', 'Deep-dive production case studies into DICOM medical imaging pipelines, high-throughput trading engines, and autonomous agent ecosystems.')}
           </p>
         </div>
 

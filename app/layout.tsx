@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import { Providers } from '@/components/providers';
 
 export const viewport: Viewport = {
   themeColor: '#070b12',
@@ -24,6 +25,14 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Yash Jangid' }],
   metadataBase: new URL('https://yashjangid.com'),
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
   openGraph: {
     title: 'Yash Jangid | Senior Full Stack Engineer & AI Platform Architect',
     description:
@@ -48,6 +57,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark scroll-smooth">
       <head>
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -56,9 +66,9 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="font-sans bg-cyber-dark text-foreground min-h-screen selection:bg-cyber-accent/30 selection:text-white overflow-x-hidden"
+        className="font-sans bg-cyber-dark text-foreground min-h-screen selection:bg-cyber-accent/30 selection:text-white overflow-x-hidden transition-colors duration-300"
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

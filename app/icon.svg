@@ -1,0 +1,45 @@
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="yjFavGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c8cff" />
+      <stop offset="50%" stop-color="#8cd8ff" />
+      <stop offset="100%" stop-color="#78e6bc" />
+    </linearGradient>
+    <linearGradient id="yjFavGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#b8a8ff" />
+      <stop offset="100%" stop-color="#7c8cff" />
+    </linearGradient>
+    <linearGradient id="yjFavBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#070b12" />
+    </linearGradient>
+  </defs>
+
+  <!-- Hexagonal Shield -->
+  <polygon
+    points="50,4 92,26 92,74 50,96 8,74 8,26"
+    fill="url(#yjFavBg)"
+    stroke="url(#yjFavGrad)"
+    stroke-width="5"
+    stroke-linejoin="round"
+  />
+
+  <!-- Inner Subtle Accent -->
+  <polygon
+    points="50,12 84,30 84,70 50,88 16,70 16,30"
+    fill="none"
+    stroke="rgba(140, 216, 255, 0.25)"
+    stroke-width="2"
+  />
+
+  <!-- "Y" Monogram -->
+  <path d="M26 27 L44 48 L44 56 L34 56 L20 38 Z" fill="url(#yjFavGrad)" />
+  <path d="M74 27 L56 48 L56 56 L66 56 L80 38 Z" fill="url(#yjFavGrad2)" />
+  <path d="M45 49 L55 49 L55 64 L45 64 Z" fill="url(#yjFavGrad)" />
+
+  <!-- "J" Monogram -->
+  <path d="M57 40 L69 40 L69 66 C69 76 60 83 48 83 C38 83 31 77 29 70 L38 68 C39 72 43 75 48 75 C54 75 58 72 58 65 Z" fill="url(#yjFavGrad)" />
+
+  <!-- Quantum Core -->
+  <circle cx="50" cy="50" r="4.5" fill="#78e6bc" />
+</svg>

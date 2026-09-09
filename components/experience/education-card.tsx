@@ -14,8 +14,11 @@ import {
   Star,
 } from 'lucide-react';
 import { educationData, awardsData } from '@/data/portfolio';
+import { useLanguage } from '@/context/language-context';
 
 export function EducationCard() {
+  const { t } = useLanguage();
+
   return (
     <div className="space-y-10">
       {/* Header */}
@@ -23,14 +26,14 @@ export function EducationCard() {
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-cyber-accent animate-pulse" />
           <span className="text-xs font-mono uppercase tracking-widest text-cyber-accent">
-            Academic &amp; Professional Honors
+            {t('edu.badge', 'Academic & Professional Honors')}
           </span>
         </div>
         <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          Education &amp; Recognition
+          {t('edu.title', 'Education & Recognition')}
         </h2>
         <p className="text-sm text-cyber-secondary max-w-xl">
-          Formal computer science foundations, cumulative GPA distinction, and industry technical awards earned in production environments.
+          {t('edu.description', 'Formal computer science foundations, cumulative GPA distinction, and industry technical awards earned in production environments.')}
         </p>
       </div>
 

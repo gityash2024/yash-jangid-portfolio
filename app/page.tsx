@@ -42,12 +42,14 @@ import { CommandPalette } from '@/components/ui/command-palette';
 import { CaseStudyModal } from '@/components/projects/case-study-modal';
 import { getCaseStudyById } from '@/data/case-studies';
 import { useSound } from '@/hooks/use-sound';
+import { useLanguage } from '@/context/language-context';
 
 export default function HomePage() {
   const [activeCaseStudyId, setActiveCaseStudyId] = useState<string | null>(null);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
   const { playClick, playHover, playSuccessChime } = useSound();
+  const { t } = useLanguage();
 
   const handleCopyEmail = () => {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
@@ -74,10 +76,10 @@ export default function HomePage() {
 
   return (
     <SmoothScroll>
-      <div className="min-h-screen bg-cyber-dark text-foreground selection:bg-cyber-accent/30 selection:text-white relative overflow-x-hidden">
+      <div className="min-h-screen bg-cyber-dark text-foreground selection:bg-cyber-accent/30 selection:text-white relative overflow-x-hidden transition-colors duration-300">
         {/* Ambient background glow & atmospheric cyber grid */}
-        <div className="fixed inset-0 pointer-events-none z-0 bg-cyber-gradient opacity-60" aria-hidden="true" />
-        <div className="fixed inset-0 pointer-events-none z-0 bg-grid-pattern opacity-10" aria-hidden="true" />
+        <div className="fixed inset-0 pointer-events-none z-0 bg-cyber-gradient opacity-60 dark:opacity-60" aria-hidden="true" />
+        <div className="fixed inset-0 pointer-events-none z-0 bg-grid-pattern opacity-10 dark:opacity-10" aria-hidden="true" />
 
         {/* Full-Page Interactive Neural Particle Mesh (Moving canvas across entire portfolio background) */}
         <div className="fixed inset-0 w-full h-full pointer-events-none z-0 overflow-hidden" aria-hidden="true">
@@ -90,16 +92,16 @@ export default function HomePage() {
         />
 
         {/* ================================================================== */}
-        {/* 1. FULL-BLEED HERO SECTION (COMPLETE WIDTH & HEIGHT COVERAGE)       */}
+        {/* 1. FULL-BLEED HERO SECTION (TIGHT FLOW BENEATH HEADER)             */}
         {/* ================================================================== */}
         <section
           id="hero"
-          className="relative w-full min-h-[calc(100vh-4rem)] lg:min-h-screen flex flex-col justify-start lg:justify-center overflow-hidden border-b border-cyber-border/40 pt-20 sm:pt-22 lg:pt-24 pb-8 sm:pb-12"
+          className="relative w-full flex flex-col justify-start overflow-hidden border-b border-cyber-border/40 pt-20 sm:pt-22 pb-8 sm:pb-10"
         >
           {/* Fallback anchor for overview */}
           <div id="overview" className="absolute -top-24" aria-hidden="true" />
 
-          {/* Full-Bleed 3D Neural Backdrop & Directional Vignettes (Complete 100vw/100vh coverage) */}
+          {/* Full-Bleed 3D Neural Backdrop & Directional Vignettes */}
           <div className="absolute inset-0 w-full h-full -z-10 overflow-hidden pointer-events-none select-none">
             <Image
               src="/images/hero-neural.jpg"
@@ -110,13 +112,13 @@ export default function HomePage() {
               className="object-cover opacity-15 mix-blend-screen scale-105 filter blur-[0.5px]"
             />
             {/* Directional Vignette Gradient Masks */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#070b12]/50 via-transparent to-[#070b12]/95" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#070b12]/70 via-transparent to-[#070b12]/75" />
+            <div className="absolute inset-0 bg-gradient-to-b from-cyber-dark/40 via-transparent to-cyber-dark/95 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-r from-cyber-dark/60 via-transparent to-cyber-dark/75 pointer-events-none" />
             <div className="absolute inset-0 bg-cyber-radial opacity-35" />
           </div>
 
-          {/* Foreground Hero Content Container with comfortable spacing right below fixed header */}
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-between lg:justify-center py-2 sm:py-4">
+          {/* Foreground Hero Content Container with comfortable tight spacing right below fixed header */}
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col justify-start py-2 sm:py-3">
             <HeroSection
               onLaunchTerminal={() => {
                 const el = document.getElementById('playground') || document.getElementById('terminal');
@@ -141,14 +143,14 @@ export default function HomePage() {
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-cyber-accent animate-pulse" />
                   <span className="text-xs font-mono uppercase tracking-widest text-cyber-accent">
-                    System Architecture &amp; Scale
+                    {t('arch.badge', 'System Architecture & Scale')}
                   </span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                  Distributed Cluster Telemetry
+                  {t('arch.title', 'Distributed Cluster Telemetry')}
                 </h2>
                 <p className="text-sm text-cyber-secondary max-w-2xl">
-                  Inspect how Redis multi-level caching, RabbitMQ decoupling, and Model Context Protocol (MCP) agent tool layers maintain sub-100ms response targets under peak concurrency.
+                  {t('arch.description', 'Inspect how Redis multi-level caching, RabbitMQ decoupling, and Model Context Protocol (MCP) agent tool layers maintain sub-100ms response targets under peak concurrency.')}
                 </p>
               </div>
 
@@ -185,14 +187,14 @@ export default function HomePage() {
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-cyber-cyan animate-pulse" />
                   <span className="text-xs font-mono uppercase tracking-widest text-cyber-cyan">
-                    Interactive AI Playground
+                    {t('terminal.badge', 'Interactive AI Playground')}
                   </span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                  Developer Agent CLI Terminal
+                  {t('terminal.title', 'Developer Agent CLI Terminal')}
                 </h2>
                 <p className="text-sm text-cyber-secondary max-w-2xl">
-                  Simulate production agentic workflows in real time. Execute 4-stage DICOM tumor segmentation pipelines, query live cluster latency, and inspect registered Model Context Protocol (MCP) server tools.
+                  {t('terminal.description', 'Simulate production agentic workflows in real time. Execute 4-stage DICOM tumor segmentation pipelines, query live cluster latency, and inspect registered Model Context Protocol (MCP) server tools.')}
                 </p>
               </div>
 
@@ -223,7 +225,6 @@ export default function HomePage() {
               <EducationCard />
             </section>
           </div>
-
         </main>
 
         {/* ================================================================== */}

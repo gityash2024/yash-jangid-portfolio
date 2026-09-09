@@ -14,9 +14,11 @@ import {
   Filter,
 } from 'lucide-react';
 import { skillsTaxonomy, SkillCategory, SkillItem } from '@/data/portfolio';
+import { useLanguage } from '@/context/language-context';
 import { cn } from '@/lib/utils';
 
 export function SkillsMatrix() {
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -61,14 +63,14 @@ export function SkillsMatrix() {
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-cyber-accent animate-pulse" />
             <span className="text-xs font-mono uppercase tracking-widest text-cyber-accent">
-              Technical Taxonomy
+              {t('skills.badge', 'Technical Taxonomy')}
             </span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Multi-Domain Skills Matrix
+            {t('skills.title', 'Multi-Domain Skills Matrix')}
           </h2>
           <p className="text-sm text-cyber-secondary max-w-xl">
-            Categorized production proficiencies spanning Agentic AI, high-load Full Stack systems, Healthcare DICOM pipelines, and Cloud infrastructure.
+            {t('skills.description', 'Categorized production proficiencies spanning Agentic AI, high-load Full Stack systems, Healthcare DICOM pipelines, and Cloud infrastructure.')}
           </p>
         </div>
 

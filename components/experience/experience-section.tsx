@@ -20,10 +20,12 @@ import {
 } from 'lucide-react';
 import { careerExperiences, ExperienceItem } from '@/data/portfolio';
 import { useSound } from '@/hooks/use-sound';
+import { useLanguage } from '@/context/language-context';
 import { cn } from '@/lib/utils';
 
 export function ExperienceSection() {
   const { playClick, playHover } = useSound();
+  const { t } = useLanguage();
 
   // State tracking which experience cards are expanded for deep-dive reading
   const [expandedCards, setExpandedCards] = useState<Record<string, boolean>>({
@@ -80,14 +82,14 @@ export function ExperienceSection() {
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-cyber-green animate-pulse" />
             <span className="text-xs font-mono uppercase tracking-widest text-cyber-accent">
-              Career Timeline &amp; Track Record
+              {t('exp.badge', 'Career Trajectory')}
             </span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Production Engineering Experience
+            {t('exp.title', 'Technical Leadership & Production History')}
           </h2>
           <p className="text-sm text-cyber-secondary max-w-xl">
-            Nearly five years of verified engineering ownership across Healthcare AI, Web3/FinTech trading engines, and enterprise microservices.
+            {t('exp.description', 'Nearly 5 years of shipping resilient distributed systems, sub-second AI inference engines, and low-latency microservices.')}
           </p>
         </div>
 

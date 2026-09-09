@@ -27,8 +27,10 @@ import {
   VolumeX,
   Zap,
 } from 'lucide-react';
+import { Logo } from '@/components/ui/logo';
 import { useMounted } from '@/hooks/use-mounted';
 import { useSound } from '@/hooks/use-sound';
+import { useLanguage } from '@/context/language-context';
 import { cn } from '@/lib/utils';
 
 export interface ExecutiveFooterProps {
@@ -40,6 +42,7 @@ export interface ExecutiveFooterProps {
 export function ExecutiveFooter({ onOpenCommandPalette, className, id }: ExecutiveFooterProps) {
   const mounted = useMounted();
   const { playClick, playHover, playSuccessChime, isMuted, toggleMute } = useSound();
+  const { t } = useLanguage();
 
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [istTime, setIstTime] = useState<string>('--:--:-- IST');
@@ -156,14 +159,15 @@ export function ExecutiveFooter({ onOpenCommandPalette, className, id }: Executi
               <span className="relative inline-flex rounded-full h-2 w-2 bg-cyber-green" />
             </span>
             <span className="text-cyber-green font-bold uppercase tracking-wider">
-              CLUSTER SYSTEM OPERATIONAL
+              {t('footer.clusterStatus', 'CLUSTER SYSTEM OPERATIONAL')}
             </span>
           </div>
 
           <div className="hidden sm:flex items-center gap-1.5 text-cyber-muted">
             <span>·</span>
-            <span className="text-cyber-secondary">Edge Latency:</span>
-            <span className="text-cyber-cyan font-semibold">18ms (Edge CDN)</span>
+            <span className="text-cyber-cyan font-semibold">
+              {t('footer.edgeLatency', 'Edge Latency: 18ms (Edge CDN)')}
+            </span>
           </div>
 
           <div className="hidden lg:flex items-center gap-1.5 text-cyber-muted">
@@ -209,10 +213,10 @@ export function ExecutiveFooter({ onOpenCommandPalette, className, id }: Executi
           <div className="space-y-3">
             <div className="inline-flex items-center gap-2 text-xs font-mono text-cyber-green">
               <span className="w-2 h-2 rounded-full bg-cyber-green animate-pulse" />
-              <span>AVAILABLE FOR SENIOR FULL STACK &amp; AI ROLES</span>
+              <span>{t('footer.status', 'AVAILABLE FOR SENIOR FULL STACK & AI ROLES')}</span>
             </div>
             <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
-              Let&apos;s Architect Next-Generation Systems
+              {t('footer.connect', "Let's Architect Next-Generation Systems")}
             </h3>
             <p className="text-sm text-cyber-secondary leading-relaxed max-w-md">
               Looking for a Senior Full Stack Engineer or AI Platform Developer to deliver high-throughput distributed architectures, Healthcare AI pipelines, or deterministic LLM agent workflows? Let&apos;s connect.
@@ -250,7 +254,7 @@ export function ExecutiveFooter({ onOpenCommandPalette, className, id }: Executi
             <div className="flex items-center justify-between text-xs font-mono">
               <span className="text-cyber-muted flex items-center gap-1.5">
                 <Terminal className="w-3.5 h-3.5 text-cyber-cyan" />
-                <span>Direct Dispatch Console</span>
+                <span>{t('footer.channel', 'Direct Dispatch Console')}</span>
               </span>
               <span className="text-[10px] text-cyber-secondary">Instant Ping</span>
             </div>
@@ -260,7 +264,7 @@ export function ExecutiveFooter({ onOpenCommandPalette, className, id }: Executi
                 type="text"
                 value={transmissionMsg}
                 onChange={(e) => setTransmissionMsg(e.target.value)}
-                placeholder="Type transmission (e.g. Discuss Senior SWE role)..."
+                placeholder={t('footer.transmissionPlaceholder', 'Type transmission (e.g. Discuss Senior SWE role)...')}
                 disabled={dispatchStatus === 'transmitting'}
                 className="flex-1 px-3 py-2 rounded-lg bg-black/40 border border-cyber-border text-xs font-mono text-white placeholder:text-cyber-muted focus:outline-none focus:border-cyber-accent/60"
               />
@@ -269,7 +273,7 @@ export function ExecutiveFooter({ onOpenCommandPalette, className, id }: Executi
                 disabled={!transmissionMsg.trim() || dispatchStatus === 'transmitting'}
                 className="px-3 py-2 rounded-lg bg-cyber-accent text-cyber-dark font-mono text-xs font-semibold hover:bg-cyber-cyan transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1 shrink-0"
               >
-                <span>{dispatchStatus === 'transmitting' ? 'Sending...' : 'Transmit'}</span>
+                <span>{dispatchStatus === 'transmitting' ? t('footer.sending', 'Sending...') : t('footer.transmit', 'Transmit')}</span>
                 <Send className="w-3 h-3" />
               </button>
             </form>
@@ -278,20 +282,20 @@ export function ExecutiveFooter({ onOpenCommandPalette, className, id }: Executi
             <div className="flex flex-wrap items-center gap-1.5 pt-1">
               <span className="text-[10px] font-mono text-cyber-muted">Presets:</span>
               {[
-                'Discuss Senior SWE role',
-                'Schedule Technical Interview',
-                'Request DICOM AI Demo',
+                { key: 'footer.discussRole', label: 'Discuss Senior SWE role' },
+                { key: 'footer.scheduleInterview', label: 'Schedule Technical Interview' },
+                { key: 'footer.requestDemo', label: 'Request DICOM AI Demo' },
               ].map((preset) => (
                 <button
-                  key={preset}
+                  key={preset.key}
                   type="button"
                   onClick={() => {
-                    setTransmissionMsg(preset);
+                    setTransmissionMsg(t(preset.key, preset.label));
                     playClick();
                   }}
                   className="px-2 py-0.5 rounded text-[10px] font-mono bg-black/40 border border-white/10 text-cyber-secondary hover:text-white hover:border-cyber-accent/40 transition-colors"
                 >
-                  {preset}
+                  {t(preset.key, preset.label)}
                 </button>
               ))}
             </div>
@@ -299,7 +303,7 @@ export function ExecutiveFooter({ onOpenCommandPalette, className, id }: Executi
             {dispatchStatus === 'sent' && (
               <p className="text-[11px] font-mono text-cyber-green flex items-center gap-1.5 animate-in fade-in duration-200">
                 <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>Transmission synced. Dispatching notification to Yash.</span>
+                <span>{t('footer.synced', 'Transmission synced. Dispatching notification to Yash.')}</span>
               </p>
             )}
           </div>
@@ -311,7 +315,7 @@ export function ExecutiveFooter({ onOpenCommandPalette, className, id }: Executi
           <div className="space-y-3">
             <span className="text-xs font-mono uppercase tracking-wider text-cyber-muted font-semibold flex items-center gap-1.5">
               <Layers className="w-3.5 h-3.5 text-cyber-accent" />
-              <span>Architecture</span>
+              <span>{t('footer.navTitle', 'Architecture')}</span>
             </span>
             <ul className="space-y-2 text-xs font-mono">
               <li>
@@ -351,7 +355,7 @@ export function ExecutiveFooter({ onOpenCommandPalette, className, id }: Executi
           <div className="space-y-3">
             <span className="text-xs font-mono uppercase tracking-wider text-cyber-muted font-semibold flex items-center gap-1.5">
               <Cpu className="w-3.5 h-3.5 text-cyber-cyan" />
-              <span>Proven Systems</span>
+              <span>{t('footer.provenSystems', 'Proven Systems')}</span>
             </span>
             <ul className="space-y-2 text-xs font-mono">
               <li>
@@ -391,7 +395,7 @@ export function ExecutiveFooter({ onOpenCommandPalette, className, id }: Executi
           <div className="space-y-3">
             <span className="text-xs font-mono uppercase tracking-wider text-cyber-muted font-semibold flex items-center gap-1.5">
               <Network className="w-3.5 h-3.5 text-cyber-lavender" />
-              <span>Coordinates</span>
+              <span>{t('footer.coordinates', 'Coordinates')}</span>
             </span>
             <div className="space-y-2 text-xs font-mono">
               <a
@@ -449,7 +453,7 @@ export function ExecutiveFooter({ onOpenCommandPalette, className, id }: Executi
                   ) : (
                     <Volume2 className="w-4 h-4 text-cyber-accent" />
                   )}
-                  <span>{isMuted ? 'Procedural Sound: Muted' : 'Sound: Active (Synth)'}</span>
+                  <span>{isMuted ? t('footer.soundMuted', 'Procedural Sound: Muted') : t('footer.soundActive', 'Sound: Active (Synth)')}</span>
                 </span>
               </button>
             </div>
@@ -461,10 +465,10 @@ export function ExecutiveFooter({ onOpenCommandPalette, className, id }: Executi
         <div className="pt-8 border-t border-cyber-border/60 space-y-3">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <span className="text-[10px] font-mono uppercase tracking-widest text-cyber-muted block font-semibold">
-              Production Architecture Foundation
+              {t('footer.foundation', 'Production Architecture Foundation')}
             </span>
             <span className="text-[10px] font-mono text-cyber-secondary/70">
-              Engineered for Sub-100ms P99 Latency &amp; Zero-Hydration Overhead
+              {t('footer.foundationSubtitle', 'Engineered for Sub-100ms P99 Latency & Zero-Hydration Overhead')}
             </span>
           </div>
           <div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-2.5">
@@ -487,7 +491,10 @@ export function ExecutiveFooter({ onOpenCommandPalette, className, id }: Executi
         {/* Bottom Bar: Copyright, Timezone & Back to Top */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-cyber-border/60 pt-8 text-xs font-mono text-cyber-muted">
           <div className="flex flex-wrap items-center gap-3">
-            <span>© 2026 Yash Jangid</span>
+            <div className="flex items-center gap-2">
+              <Logo size={20} className="shrink-0" />
+              <span>{t('footer.copyright', '© 2026 Yash Jangid. Crafted for high-scale platform engineering.')}</span>
+            </div>
             <span>·</span>
             <span>Built with Next.js 15 &amp; React 19</span>
             <span className="hidden md:inline">·</span>
@@ -503,9 +510,9 @@ export function ExecutiveFooter({ onOpenCommandPalette, className, id }: Executi
               type="button"
               onClick={handleScrollToTop}
               onMouseEnter={playHover}
-              aria-label="Scroll back to top"
+              aria-label={t('footer.backToTop', 'Scroll back to top')}
               className="p-2.5 rounded-xl bg-cyber-surface2 border border-cyber-border hover:border-cyber-accent/50 text-cyber-secondary hover:text-white hover:shadow-glow-accent transition-all"
-              title="Scroll back to top"
+              title={t('footer.backToTop', 'Scroll back to top')}
             >
               <ArrowUp className="w-4 h-4" />
             </button>

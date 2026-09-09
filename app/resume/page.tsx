@@ -18,10 +18,16 @@ import {
   MapPin,
   Calendar,
   Sparkles,
+  Sun,
+  Moon,
 } from 'lucide-react';
 import { portfolioData } from '@/data/portfolio';
+import { useTheme } from '@/context/theme-context';
+import { useLanguage } from '@/context/language-context';
 
 export default function ResumePage() {
+  const { isDark, toggleTheme } = useTheme();
+  const { t } = useLanguage();
   const handlePrint = () => {
     if (typeof window !== 'undefined') {
       window.print();
@@ -38,7 +44,7 @@ export default function ResumePage() {
             className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono text-cyber-secondary hover:text-white transition-colors"
           >
             <ArrowLeft className="w-4 h-4 text-cyber-accent" />
-            <span>Back to Portfolio</span>
+            <span>{t('resume.back', 'Back to Portfolio')}</span>
           </Link>
 
           <div className="flex items-center gap-3">
@@ -47,8 +53,18 @@ export default function ResumePage() {
               className="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono bg-cyber-surface2 border border-cyber-border text-cyber-secondary hover:text-white hover:border-cyber-accent/40 transition-all"
             >
               <Mail className="w-3.5 h-3.5 text-cyber-cyan" />
-              <span>Contact Yash</span>
+              <span>{t('resume.contact', 'Contact Yash')}</span>
             </a>
+
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              className="p-2.5 rounded-xl border border-cyber-border bg-cyber-surface2 text-cyber-secondary hover:text-white transition-all flex items-center justify-center"
+              title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            >
+              {isDark ? <Sun className="w-4 h-4 text-cyber-cyan" /> : <Moon className="w-4 h-4 text-indigo-600" />}
+            </button>
 
             <button
               type="button"
@@ -56,7 +72,7 @@ export default function ResumePage() {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-semibold bg-cyber-accent text-cyber-dark hover:bg-white hover:shadow-glow-accent transition-all duration-200"
             >
               <Printer className="w-4 h-4" />
-              <span>Print / Save PDF</span>
+              <span>{t('resume.print', 'Print / Save PDF')}</span>
             </button>
           </div>
         </div>
@@ -71,7 +87,7 @@ export default function ResumePage() {
               <div className="flex items-center gap-2 print:hidden">
                 <span className="w-2 h-2 rounded-full bg-cyber-green animate-pulse" />
                 <span className="text-[11px] font-mono uppercase tracking-widest text-cyber-accent">
-                  Verified Executive Curriculum Vitae
+                  {t('resume.badge', 'Verified Executive Curriculum Vitae')}
                 </span>
               </div>
 
