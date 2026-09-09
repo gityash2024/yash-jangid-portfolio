@@ -94,7 +94,7 @@ export default function HomePage() {
         {/* ================================================================== */}
         <section
           id="hero"
-          className="relative w-full min-h-screen flex flex-col justify-center overflow-hidden border-b border-cyber-border/40"
+          className="relative w-full min-h-[calc(100vh-4rem)] lg:min-h-screen flex flex-col justify-start lg:justify-center overflow-hidden border-b border-cyber-border/40 pt-20 sm:pt-22 lg:pt-24 pb-8 sm:pb-12"
         >
           {/* Fallback anchor for overview */}
           <div id="overview" className="absolute -top-24" aria-hidden="true" />
@@ -115,8 +115,8 @@ export default function HomePage() {
             <div className="absolute inset-0 bg-cyber-radial opacity-35" />
           </div>
 
-          {/* Foreground Hero Content Container with generous vertical breathing room */}
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 w-full my-auto">
+          {/* Foreground Hero Content Container with comfortable spacing right below fixed header */}
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-between lg:justify-center py-2 sm:py-4">
             <HeroSection
               onLaunchTerminal={() => {
                 const el = document.getElementById('playground') || document.getElementById('terminal');

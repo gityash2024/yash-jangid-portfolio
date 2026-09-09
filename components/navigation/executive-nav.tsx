@@ -88,7 +88,10 @@ export function ExecutiveNav({
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full glass-nav transition-all duration-200">
+    <header
+      className="fixed top-0 inset-x-0 z-50 w-full glass-nav backdrop-blur-xl bg-cyber-dark/85 border-b border-cyber-border/60 transition-all duration-200"
+      data-nav-placement="sticky top-0 z-50 w-full glass-nav"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         {/* Left: Identity / Status Pill */}
         <div className="flex items-center gap-3">

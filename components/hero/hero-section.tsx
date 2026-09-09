@@ -156,7 +156,7 @@ export function HeroSection({
     <div
       ref={heroRef}
       aria-label="Hero Content"
-      className={cn('relative w-full space-y-12 sm:space-y-16', className)}
+      className={cn('relative w-full space-y-4 sm:space-y-6 lg:space-y-5', className)}
     >
       {/* Subtle Ambient Atmosphere & Neural Texture Layer */}
       <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none select-none opacity-30">
@@ -182,13 +182,13 @@ export function HeroSection({
       </div>
 
       {/* Cyber-Executive Headline, Subtitle, CTAs & Executive Portrait Split */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-center">
         {/* Left Column: Headline & Action Triggers */}
-        <div className="lg:col-span-7 space-y-6 sm:space-y-8">
-          <div className="space-y-5 sm:space-y-6">
+        <div className="lg:col-span-7 space-y-3.5 sm:space-y-4">
+          <div className="space-y-2.5 sm:space-y-3">
             <h1
               ref={headlineRef}
-              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.2] sm:leading-[1.16] lg:leading-[1.12] text-white"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] xl:text-[3.1rem] font-extrabold tracking-tight leading-[1.16] sm:leading-[1.12] text-white"
             >
               Architecting High-Throughput Platforms &amp;{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyber-accent via-cyber-cyan to-cyber-lavender text-glow-accent">
@@ -198,7 +198,7 @@ export function HeroSection({
 
             <p
               ref={subtitleRef}
-              className="text-base sm:text-lg lg:text-xl text-cyber-secondary font-normal leading-relaxed max-w-2xl"
+              className="text-xs sm:text-sm md:text-base lg:text-[1rem] text-cyber-secondary font-normal leading-relaxed max-w-2xl"
             >
               <strong className="text-white font-semibold">
                 Senior Full Stack Engineer &amp; AI Platform / Agentic Developer
@@ -210,14 +210,14 @@ export function HeroSection({
             </p>
           </div>
 
-          {/* High-Impact CTA Buttons with generous spacing */}
-          <div ref={ctaGroupRef} className="flex flex-wrap items-center gap-3.5 sm:gap-4 pt-4 sm:pt-6">
+          {/* High-Impact CTA Buttons */}
+          <div ref={ctaGroupRef} className="flex flex-wrap items-center gap-2 sm:gap-3 pt-1.5 sm:pt-2">
             {/* Primary CTA: Launch Agent CLI */}
             <a
               href="#terminal"
               onClick={handleTerminalClick}
               onMouseEnter={playHover}
-              className="inline-flex items-center gap-2.5 px-5 sm:px-6 py-3.5 rounded-xl text-sm font-mono font-semibold bg-cyber-accent text-cyber-dark hover:bg-cyber-cyan hover:shadow-glow-cyan transition-all duration-200 shadow-md group whitespace-nowrap"
+              className="inline-flex items-center gap-2.5 px-4.5 sm:px-5 py-3 rounded-xl text-xs sm:text-sm font-mono font-semibold bg-cyber-accent text-cyber-dark hover:bg-cyber-cyan hover:shadow-glow-cyan transition-all duration-200 shadow-md group whitespace-nowrap"
             >
               <Terminal className="w-4 h-4 text-cyber-dark group-hover:rotate-12 transition-transform duration-200" />
               <span>Launch Agent CLI</span>
@@ -228,7 +228,7 @@ export function HeroSection({
               href="#architecture"
               onClick={handleArchitectureClick}
               onMouseEnter={playHover}
-              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl text-sm font-medium bg-cyber-surface2 hover:bg-cyber-surface2/80 border border-cyber-border hover:border-cyber-accent/50 text-white transition-all duration-200 shadow-sm group whitespace-nowrap"
+              className="inline-flex items-center gap-2 px-4 sm:px-4.5 py-3 rounded-xl text-xs sm:text-sm font-medium bg-cyber-surface2 hover:bg-cyber-surface2/80 border border-cyber-border hover:border-cyber-accent/50 text-white transition-all duration-200 shadow-sm group whitespace-nowrap"
             >
               <Layers className="w-4 h-4 text-cyber-accent group-hover:text-cyber-cyan transition-colors" />
               <span>Explore Architecture</span>
@@ -239,7 +239,7 @@ export function HeroSection({
             <a
               href="/resume"
               onMouseEnter={playHover}
-              className="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl text-sm font-medium bg-transparent border border-cyber-border hover:border-white/20 text-cyber-secondary hover:text-white hover:bg-white/5 transition-all duration-200 whitespace-nowrap"
+              className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-3 rounded-xl text-xs sm:text-sm font-medium bg-transparent border border-cyber-border hover:border-white/20 text-cyber-secondary hover:text-white hover:bg-white/5 transition-all duration-200 whitespace-nowrap"
             >
               <FileText className="w-4 h-4 text-cyber-cyan" />
               <span>Download Résumé</span>
@@ -251,7 +251,7 @@ export function HeroSection({
               onClick={handleCopyEmail}
               onMouseEnter={playHover}
               aria-label="Copy contact email"
-              className="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl text-xs font-mono bg-cyber-surface2/60 border border-cyber-border hover:border-cyber-accent/40 text-cyber-secondary hover:text-white transition-all whitespace-nowrap"
+              className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-3 rounded-xl text-xs font-mono bg-cyber-surface2/60 border border-cyber-border hover:border-cyber-accent/40 text-cyber-secondary hover:text-white transition-all whitespace-nowrap"
             >
               <Mail className="w-3.5 h-3.5 text-cyber-accent" />
               <span>{copiedEmail ? 'Copied ✓' : 'gityash2024@gmail.com'}</span>
@@ -266,17 +266,17 @@ export function HeroSection({
       </div>
 
       {/* VERIFIED STATS PILLS (10K+ users, 10K+ req/min, 40% latency drop, 99.9% uptime) */}
-      <div ref={statsContainerRef} className="pt-8 sm:pt-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+      <div ref={statsContainerRef} className="pt-3 sm:pt-5 lg:pt-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3.5">
           {verifiedStats.map((stat) => {
             const Icon = stat.icon;
             return (
               <div
                 key={stat.label}
                 onMouseEnter={playHover}
-                className="hero-stat-card glass-card rounded-2xl p-4 sm:p-5 border border-cyber-border hover:border-cyber-accent/40 hover:shadow-glass-card-hover transition-all duration-300 flex flex-col justify-between group bg-cyber-card/90 backdrop-blur-md cursor-default"
+                className="hero-stat-card glass-card rounded-xl p-3 sm:p-4 border border-cyber-border hover:border-cyber-accent/40 hover:shadow-glass-card-hover transition-all duration-300 flex flex-col justify-between group bg-cyber-card/90 backdrop-blur-md cursor-default"
               >
-                <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center justify-between mb-1.5">
                   <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-cyber-muted group-hover:text-cyber-cyan transition-colors">
                     {stat.label}
                   </span>
@@ -286,11 +286,11 @@ export function HeroSection({
                 </div>
 
                 <div>
-                  <div className="text-2xl sm:text-3xl font-bold font-mono tracking-tight text-white flex items-baseline gap-1.5">
+                  <div className="text-xl sm:text-2xl lg:text-3xl font-bold font-mono tracking-tight text-white flex items-baseline gap-1.5">
                     <span>{stat.value}</span>
                     <span className="text-xs font-normal text-cyber-accent font-sans">{stat.unit}</span>
                   </div>
-                  <p className="text-[11px] text-cyber-secondary mt-1 line-clamp-1 group-hover:text-white transition-colors">
+                  <p className="text-[11px] text-cyber-secondary mt-0.5 line-clamp-1 group-hover:text-white transition-colors">
                     {stat.detail}
                   </p>
                 </div>
