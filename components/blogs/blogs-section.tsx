@@ -14,7 +14,7 @@ import {
   Filter,
   Check,
 } from 'lucide-react';
-import { blogPosts, BlogPost } from '@/data/blogs';
+import { blogPosts, BlogPost, downloadBlogPost } from '@/data/blogs';
 import { BlogReaderModal } from './blog-reader-modal';
 import { useSound } from '@/hooks/use-sound';
 import { cn } from '@/lib/utils';
@@ -24,7 +24,7 @@ export function BlogsSection() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [blogViews, setBlogViews] = useState<Record<string, number>>({});
-  const { playClick, playHover } = useSound();
+  const { playClick, playHover, playSuccessChime } = useSound();
 
   // Load and hydrate views from localStorage
   useEffect(() => {
@@ -67,6 +67,12 @@ export function BlogsSection() {
 
   const handleCloseBlog = () => {
     setSelectedBlog(null);
+  };
+
+  const handleQuickDownload = (post: BlogPost, e: React.MouseEvent) => {
+    e.stopPropagation();
+    downloadBlogPost(post);
+    playSuccessChime();
   };
 
   // Filter and search logic
@@ -259,7 +265,7 @@ export function BlogsSection() {
                       {/* Quick Markdown Download */}
                       <button
                         type="button"
-                        onClick={() => handleOpenBlog(post)}
+                        onClick={(e) => handleQuickDownload(post, e)}
                         title="Download markdown"
                         aria-label={`Download ${post.title}`}
                         className="p-1.5 rounded-lg border border-cyber-border bg-cyber-surface2/80 text-cyber-muted hover:text-cyber-accent hover:border-cyber-accent/40 transition-colors"

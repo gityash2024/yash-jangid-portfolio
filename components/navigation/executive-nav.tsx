@@ -219,7 +219,7 @@ export function ExecutiveNav({
         </div>
 
         {/* Center: Desktop Navigation Links with Active Indicator CSS */}
-        <nav className="hidden xl:flex items-center gap-1">
+        <nav className="hidden md:flex items-center gap-0.5 lg:gap-1">
           {navLinks.map((link) => {
             const isActive = activeSection === link.href;
             return (
@@ -228,7 +228,7 @@ export function ExecutiveNav({
                 href={link.href}
                 onMouseEnter={playHover}
                 className={cn(
-                  'relative px-2.5 py-1.5 rounded-lg text-[11px] lg:text-xs font-medium transition-all duration-200 whitespace-nowrap shrink-0 flex items-center gap-1.5',
+                  'relative px-2 lg:px-2.5 py-1 lg:py-1.5 rounded-lg text-[11px] lg:text-xs font-medium transition-all duration-200 whitespace-nowrap shrink-0 flex items-center gap-1.5',
                   isActive
                     ? 'bg-cyber-accent/15 text-white font-semibold border border-cyber-accent/40 shadow-[0_0_12px_rgba(124,140,255,0.25)]'
                     : 'text-cyber-secondary hover:text-white hover:bg-white/5 border border-transparent'
@@ -346,7 +346,7 @@ export function ExecutiveNav({
             aria-label="Open command palette"
             className="hidden sm:flex items-center gap-1.5 px-2 py-1.5 rounded-md border border-cyber-border bg-cyber-surface2/60 text-cyber-secondary hover:text-white hover:border-cyber-accent/40 hover:bg-cyber-surface2 transition-all text-xs font-mono group"
           >
-            <Command className="w-3.5 h-3.5 text-cyber-accent group-hover:scale-110 transition-transform" />
+            <Command className="w-3.5 h-3.5 text-cyber-accent group-hover:text-cyber-cyan transition-colors" />
             <kbd className="inline-flex items-center gap-0.5 px-1 py-0.5 rounded bg-black/40 border border-white/10 text-[10px] text-cyber-muted group-hover:text-cyber-secondary">
               ⌘K
             </kbd>

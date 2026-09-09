@@ -905,3 +905,42 @@ export function getBlogPostById(id: string): BlogPost | undefined {
 export function getAllBlogPosts(): BlogPost[] {
   return blogPosts;
 }
+
+export function downloadBlogPost(blog: BlogPost): void {
+  if (typeof window === 'undefined') return;
+
+  const markdownContent = `---
+title: "${blog.title.replace(/"/g, '\\"')}"
+subtitle: "${blog.subtitle.replace(/"/g, '\\"')}"
+author: "${blog.author.name} (${blog.author.role})"
+published: "${blog.publishedAt}"
+category: "${blog.category}"
+tags: ${JSON.stringify(blog.tags)}
+readTime: "${blog.readTime}"
+---
+
+# ${blog.title}
+> ${blog.subtitle}
+
+**Author:** ${blog.author.name} · ${blog.author.role}  
+**Published:** ${blog.publishedAt} | **Category:** ${blog.category} | **Read Time:** ${blog.readTime}
+
+---
+
+${blog.content}
+
+---
+*Published on Yash Jangid Portfolio (https://yashjangid.com)*
+`;
+
+  const blob = new Blob([markdownContent], { type: 'text/markdown;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.setAttribute('download', `${blog.slug}.md`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+}
+

@@ -19,9 +19,16 @@ export const metadata: Metadata = {
     'AI Platform Developer',
     'Agentic Workflows',
     'DICOM AI',
+    'NIfTI Medical Imaging',
     'Web3 Trading Systems',
+    'Softlogic AI Studio',
+    'Mirsat Satellite Engine',
+    'Sacred Groves Natural Capital',
+    'Model Context Protocol MCP',
+    'Redis Hot-Path Caching',
     'Next.js 15',
     'React 19',
+    'High-Throughput Systems',
   ],
   authors: [{ name: 'Yash Jangid' }],
   metadataBase: new URL('https://yashjangid.com'),
@@ -49,6 +56,42 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLdData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': 'https://yashjangid.com/#person',
+      name: 'Yash Jangid',
+      jobTitle: 'Senior Full Stack Engineer & AI Platform Architect',
+      url: 'https://yashjangid.com',
+      email: 'gityash2024@gmail.com',
+      sameAs: [
+        'https://github.com/gityash2024',
+        'https://in.linkedin.com/in/yashjangid091099',
+      ],
+      alumniOf: {
+        '@type': 'EducationalOrganization',
+        name: 'University of Petroleum and Energy Studies (UPES)',
+      },
+      knowsAbout: [
+        'Healthcare AI & Medical Imaging (DICOM/NIfTI)',
+        'High-Throughput Web3 & Algorithmic Trading Engines',
+        'Distributed Microservices & Redis Caching',
+        'Model Context Protocol (MCP) Multi-Agent Systems',
+        'Next.js 15 & React 19 Concurrent Architectures',
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://yashjangid.com/#website',
+      url: 'https://yashjangid.com',
+      name: 'Yash Jangid Portfolio',
+      publisher: { '@id': 'https://yashjangid.com/#person' },
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -63,6 +106,10 @@ export default function RootLayout({
         <link
           href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Manrope:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
           rel="stylesheet"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
         />
       </head>
       <body

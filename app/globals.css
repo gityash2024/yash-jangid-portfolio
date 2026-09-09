@@ -107,38 +107,25 @@
 }
 
 @layer utilities {
-  /* Universal Crisp Anti-Blur Fixes for Chrome/WebKit/Firefox on Windows */
+  /* Universal Crisp Font Smoothing & Text Rendering across Windows/WebKit/Blink/Gecko */
   *, *::before, *::after {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
 
-  /* Force discrete GPU layer allocation without rasterization texture downsampling */
-  article,
-  button,
-  a,
-  input,
-  textarea,
+  /* Crisp rendering for glass containers without destroying ClearType font smoothing */
   .glass-card,
-  .hero-stat-card,
-  [class*="group-hover"],
-  [class*="hover:"],
-  [class*="transition-"] {
+  .hero-stat-card {
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    transform: translateZ(0);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Prevent text from blurring during hover animations */
-  .glass-card *,
-  .hero-stat-card *,
-  button *,
-  a * {
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
+  /* Prevent subpixel jitter on interactive hover transitions */
+  button,
+  a {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   .glass-nav {

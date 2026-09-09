@@ -10,11 +10,14 @@ export interface LogoProps {
 }
 
 export function Logo({ className, size = 32, showText = false }: LogoProps) {
+  const rawId = React.useId();
+  const id = rawId.replace(/:/g, '_');
+
   return (
     <div className={cn('inline-flex items-center gap-2.5 select-none group', className)}>
       <div
         style={{ width: size, height: size }}
-        className="relative shrink-0 flex items-center justify-center transition-transform duration-200 group-hover:scale-105"
+        className="relative shrink-0 flex items-center justify-center transition-all duration-200 group-hover:brightness-110"
       >
         {/* Subtle Ambient Glow */}
         <div
@@ -27,25 +30,26 @@ export function Logo({ className, size = 32, showText = false }: LogoProps) {
           viewBox="0 0 100 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="relative w-full h-full drop-shadow-sm transition-transform duration-200"
+          shapeRendering="geometricPrecision"
+          className="relative w-full h-full drop-shadow-sm transition-all duration-200 group-hover:drop-shadow-[0_0_8px_rgba(124,140,255,0.4)]"
         >
           <defs>
-            <linearGradient id="yjLogoBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+            <linearGradient id={`yjLogoBorder_${id}`} x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#7c8cff" />
               <stop offset="50%" stopColor="#8cd8ff" />
               <stop offset="100%" stopColor="#78e6bc" />
             </linearGradient>
-            <linearGradient id="yjLogoGradY" x1="25%" y1="25%" x2="50%" y2="55%">
+            <linearGradient id={`yjLogoGradY_${id}`} x1="25%" y1="25%" x2="50%" y2="55%">
               <stop offset="0%" stopColor="#b8a8ff" />
               <stop offset="100%" stopColor="#7c8cff" />
             </linearGradient>
-            <linearGradient id="yjLogoGradJ" x1="75%" y1="25%" x2="20%" y2="85%">
+            <linearGradient id={`yjLogoGradJ_${id}`} x1="75%" y1="25%" x2="20%" y2="85%">
               <stop offset="0%" stopColor="#8cd8ff" />
               <stop offset="50%" stopColor="#7c8cff" />
               <stop offset="100%" stopColor="#78e6bc" />
             </linearGradient>
-            <linearGradient id="yjLogoBg" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#0d1527" />
+            <linearGradient id={`yjLogoBg_${id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#0c1424" />
               <stop offset="100%" stopColor="#05080f" />
             </linearGradient>
           </defs>
@@ -57,51 +61,52 @@ export function Logo({ className, size = 32, showText = false }: LogoProps) {
             width="90"
             height="90"
             rx="22"
-            fill="url(#yjLogoBg)"
-            stroke="url(#yjLogoBorder)"
-            strokeWidth="3"
-            className="transition-all duration-300 group-hover:stroke-[3.5]"
+            fill={`url(#yjLogoBg_${id})`}
+            stroke={`url(#yjLogoBorder_${id})`}
+            strokeWidth="3.2"
+            className="transition-all duration-300"
           />
 
           {/* Cyber Tech Brackets */}
           <path
             d="M15 28 V15 H28"
             stroke="#8cd8ff"
-            strokeWidth="1.8"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            opacity="0.5"
+            opacity="0.6"
           />
           <path
             d="M85 72 V85 H72"
             stroke="#78e6bc"
-            strokeWidth="1.8"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            opacity="0.5"
+            opacity="0.6"
           />
 
-          {/* Y-Wing (Left) */}
+          {/* Y-Wing (Left) meeting at nexus (50, 52) */}
           <path
-            d="M26 27 L47 52"
-            stroke="url(#yjLogoGradY)"
+            d="M26 26 L50 52"
+            stroke={`url(#yjLogoGradY_${id})`}
             strokeWidth="9"
             strokeLinecap="round"
           />
 
-          {/* Interlocking Y-Right-Wing + J Stem & Hook */}
+          {/* Interlocking Y-Right-Wing + J Stem & Hook meeting at nexus (50, 52) */}
           <path
-            d="M74 27 L53 52 V68 C53 76.5 46 83 36 83 C27 83 21 77 20 70"
-            stroke="url(#yjLogoGradJ)"
+            d="M74 26 L50 52 V67 C50 76.5 43 83 33 83 C24 83 18 76.5 18 69"
+            stroke={`url(#yjLogoGradJ_${id})`}
             strokeWidth="9"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
 
-          {/* Quantum Core Pulse Accent Nodes */}
-          <circle cx="26" cy="27" r="3.2" fill="#b8a8ff" />
-          <circle cx="74" cy="27" r="3.2" fill="#8cd8ff" />
-          <circle cx="20" cy="70" r="3.2" fill="#78e6bc" />
+          {/* Precision Nexus Accent Nodes */}
+          <circle cx="26" cy="26" r="3.2" fill="#b8a8ff" />
+          <circle cx="74" cy="26" r="3.2" fill="#8cd8ff" />
+          <circle cx="18" cy="69" r="3.2" fill="#78e6bc" />
+          <circle cx="50" cy="52" r="2" fill="#ffffff" opacity="0.85" />
         </svg>
       </div>
 
